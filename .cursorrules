@@ -1,0 +1,110 @@
+# Project Rules
+
+## Stack
+- React + Vite + TanStack Router + TanStack Query + Zustand
+
+## UI & Estilizacao
+- Use ShadCN UI (`src/components/ui`)
+- NUNCA use tags HTML puras estilizadas - use componentes ShadCN
+- **PROIBIDO**: `<h1-6>`, `<p>`, `<span>` com classes de tipografia em componentes comuns — usar `<ItemTitle>`, `<ItemDescription>`
+- **PROIBIDO**: `<div className="flex flex-col gap-*">` para listas/layout — usar `<ItemGroup>`, `<ItemContent>`, `<ItemHeader>`, `<ItemFooter>`, `<ItemActions>`
+- Documentacao completa do padrao: `docs/item-pattern.md`
+- Para cores de graficos: `getChartColor(index)` de `src/components/ui/chart`
+- NUNCA use `mx-auto` no ChartContainer
+
+## Roteamento
+- Rotas baseadas em diretorios com `index.tsx` obrigatorio
+- PROIBIDO usar `.` para criar rotas aninhadas (ex: `edit.$id.tsx`)
+- Estrutura valida: `index.tsx`, `add.tsx`, `$id.tsx`
+
+## Estado Global
+- Usar Zustand com middleware `persist` para persistencia
+- NUNCA usar `localStorage.setItem` diretamente
+
+## Componentes Obrigatorios
+- Dados vazios: `<DefaultEmptyData />` de `src/components/default-empty-data.tsx`
+- Loading: `<DefaultLoading />` de `src/components/default-loading.tsx`
+- Formularios: `<DefaultFormLayout />` de `src/components/default-form-layout.tsx`
+
+## Estrutura de Pagina
+```tsx
+<Card>
+  <CardHeader>
+    {/* Acoes: botoes, filtros */}
+  </CardHeader>
+  <CardContent>
+    {/* Conteudo */}
+  </CardContent>
+  <CardFooter layout="multi | single">
+    {/* Paginacao */}
+  </CardFooter>
+</Card>
+```
+
+## Componentes Comuns (nao paginas)
+- NUNCA usar Card.tsx em componentes comuns
+- Usar `<Item>`, `<ItemTitle>`, `<ItemDescription>`, `<ItemContent>`, `<ItemHeader>`, `<ItemFooter>`, `<ItemActions>` de `src/components/ui/item.tsx`
+- NUNCA `<h1-6>`, `<p>`, `<span>` com classes de tipografia — usar `<ItemTitle>` e `<ItemDescription>`
+- NUNCA `<div className="flex flex-col gap-*">` para layout composicional — usar subcomponentes do Item
+
+## Hooks de API (Padrao TanStack Query)
+```tsx
+// src/hooks/use-{feature}-api.ts
+export const featureKeys = {
+  all: ['feature'] as const,
+  lists: () => [...featureKeys.all, 'list'] as const,
+  detail: (id: string) => [...featureKeys.all, 'detail', id] as const,
+};
+
+export function useFeature() {
+  return useQuery({
+    queryKey: featureKeys.lists(),
+    queryFn: async () => (await api.get('/feature/list')).data,
+  });
+}
+```
+
+## Hooks de Formulario (react-hook-form + zod)
+- Criar em `@hooks/use-{feature}-form.ts` da rota
+- Usar `zodResolver` para validacao
+
+## Antes de Criar Hooks
+- VERIFICAR se ja existe em `src/hooks/` (hooks globais)
+- Hooks especificos de rota: criar em `@hooks/` da rota
+
+## Estrutura de Pastas da Rota
+```
+src/routes/_private/{module}/
+├── index.tsx           # Pagina principal
+├── @components/        # Componentes especificos da rota
+├── @consts/           # Valores fixos, enums
+├── @hooks/            # Hooks especificos
+├── @interface/        # Types, Interfaces, Schemas Zod
+└── @utils/            # Funcoes auxiliares
+```
+
+## Antes de Commitar
+```bash
+pnpm run format  # Biome
+pnpm run check   # TypeScript
+```
+
+---
+
+## Documentacao Detalhada (sob demanda)
+
+Para padroes detalhados com exemplos completos, leia os docs conforme o cenario:
+
+| Cenario | Documento |
+|---------|-----------|
+| Iniciar nova feature / criar pastas | `docs/route-structure.md`, `docs/checklist.md` |
+| Criar pagina de listagem ou formulario | `docs/page-patterns.md` |
+| Criar hooks de API (TanStack Query) | `docs/api-hooks.md` |
+| Criar formularios (react-hook-form) | `docs/form-hooks.md` |
+| Criar schemas Zod, interfaces, consts | `docs/schemas-types.md` |
+| Gerenciar estado global (Zustand) | `docs/state-management.md` |
+| Padroes de componentes React | `docs/react-patterns.md` |
+| Buscar selects, hooks ou componentes existentes | `docs/available-resources.md` |
+| Máscaras e Funções de Utilidade (CPF, Tel, Data) | `docs/masks.md` |
+| Consultar tech stack e versoes | `docs/stack.md` |
+| **Padrao Item e tipagem de componentes UI** | **`docs/item-pattern.md`** |
