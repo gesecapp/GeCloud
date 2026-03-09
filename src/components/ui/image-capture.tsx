@@ -25,11 +25,11 @@ function CaptureSlider({
   onChange: (_value: number) => void;
 }) {
   return (
-    <div data-slot="capture-slider" className="flex flex-col items-center gap-1">
-      <div className="text-white [&_svg]:size-4">{icon}</div>
+    <div data-slot="capture-slider" className="flex min-h-0 flex-1 flex-col items-center gap-0.5">
+      <div className="text-white [&_svg]:size-3.5 sm:[&_svg]:size-4">{icon}</div>
       <input
         aria-label={label}
-        className="h-16 w-1 cursor-pointer appearance-none rounded-full bg-white/30 accent-white sm:h-20 [&::-webkit-slider-thumb]:size-3 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white"
+        className="w-1 flex-1 cursor-pointer appearance-none rounded-full bg-white/30 accent-white [&::-webkit-slider-thumb]:size-2.5 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white sm:[&::-webkit-slider-thumb]:size-3"
         max={max}
         min={min}
         onChange={(e) => onChange(Number(e.target.value))}
@@ -329,21 +329,22 @@ function CameraCaptureDialog({ open, onClose, onCapture }: CameraCaptureDialogPr
 
   return (
     <Dialog open={open} onOpenChange={(v) => !v && onClose()}>
-      <DialogContent className="max-h-[90vh] max-w-[600px] overflow-hidden p-0 sm:min-w-fit!" showCloseButton={false}>
-        <DialogHeader className="absolute top-0 right-0 left-0 z-30 flex flex-row items-center justify-between bg-linear-to-b from-black/60 to-transparent p-3 sm:p-4">
-          <DialogTitle className="text-white">Capturar Foto</DialogTitle>
+      <DialogContent className="flex! h-[min(90vh,800px)] max-w-150 flex-col gap-0 overflow-hidden border-none bg-black p-0 sm:min-w-fit!" showCloseButton={false}>
+        <DialogHeader className="relative z-30 flex shrink-0 flex-row items-center justify-between bg-black px-2 py-1 text-white sm:px-3 sm:py-2">
+          <DialogTitle className="text-sm text-white sm:text-lg">Capturar Foto</DialogTitle>
           <Button className="text-white" onClick={onClose} size="icon-sm" variant="ghost">
             <X />
           </Button>
         </DialogHeader>
 
-        <div className="relative flex aspect-3/4 min-h-[400px] items-center justify-center bg-black sm:min-h-[500px]">
+        <div className="relative flex min-h-0 flex-1 items-center justify-center overflow-hidden bg-black">
           {/* Video */}
           <video
             autoPlay
             muted
             playsInline
             ref={videoRef}
+            className="absolute inset-0"
             style={{
               height: '100%',
               width: '100%',
@@ -355,11 +356,32 @@ function CameraCaptureDialog({ open, onClose, onCapture }: CameraCaptureDialogPr
           />
           <canvas ref={canvasRef} className="hidden" />
 
+          {/* Capture frame 3:4 with corner markers */}
+          <div className="pointer-events-none absolute inset-0 z-5 flex items-center justify-center">
+            <div className="relative aspect-3/4 max-h-[calc(100%-32px)] w-[calc(100%-32px)] rounded-xl border-2 border-white/30">
+              {/* Corner markers */}
+              <div className="absolute -top-px -left-px size-6 rounded-tl-xl border-white/50 border-t-[3px] border-l-[3px]" />
+              <div className="absolute -top-px -right-px size-6 rounded-tr-xl border-white/50 border-t-[3px] border-r-[3px]" />
+              <div className="absolute -bottom-px -left-px size-6 rounded-bl-xl border-white/50 border-b-[3px] border-l-[3px]" />
+              <div className="absolute -right-px -bottom-px size-6 rounded-br-xl border-white/50 border-r-[3px] border-b-[3px]" />
+            </div>
+          </div>
+
+          {/* Face guide oval */}
+          <div className="pointer-events-none absolute inset-0 z-6 flex items-center justify-center">
+            <div
+              className="aspect-3/4 w-[min(calc((100%-32px)*0.55),calc((100dvh-100px)*0.75*0.55))] rounded-full border-2 border-dashed transition-colors duration-300"
+              style={{
+                borderColor: faceQuality.isCentered && faceQuality.hasGoodLighting && faceQuality.noBacklight ? '#4caf50' : 'rgba(255, 255, 255, 0.3)',
+              }}
+            />
+          </div>
+
           {/* Auto-focus button */}
           {focusSupported && (
             <Button
               className={cn(
-                'absolute bottom-24 left-2 z-20 bg-black/60 text-white backdrop-blur-md hover:bg-black/80 sm:bottom-28 sm:left-3',
+                'absolute bottom-22.5 left-2 z-20 bg-black/60 text-white backdrop-blur-md hover:bg-black/80 sm:bottom-25 sm:left-3',
                 isFocusing && 'animate-pulse text-green-400',
               )}
               disabled={isFocusing}
@@ -372,7 +394,7 @@ function CameraCaptureDialog({ open, onClose, onCapture }: CameraCaptureDialogPr
           )}
 
           {/* Status indicators */}
-          <div className="absolute top-14 left-3 z-20 flex flex-col gap-1.5">
+          <div className="absolute top-3 left-3 z-20 flex flex-col gap-1">
             <StatusBadge icon={<Sun />} label={`Iluminação: ${lightingLabel}`} variant={faceQuality.hasGoodLighting ? 'success' : 'warning'} />
             {!faceQuality.noBacklight && <StatusBadge icon={<Zap />} label="Luz de fundo detectada" variant="warning" />}
             {faceDetectorSupported && (
@@ -382,31 +404,6 @@ function CameraCaptureDialog({ open, onClose, onCapture }: CameraCaptureDialogPr
                 variant={faceQuality.faceDetected ? (faceQuality.isCentered ? 'success' : 'info') : 'warning'}
               />
             )}
-          </div>
-
-          {/* Face Guide Overlay */}
-          <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-            <svg height="100%" preserveAspectRatio="none" viewBox="0 0 100 100" width="100%">
-              <defs>
-                <mask id="face-mask">
-                  <rect fill="white" height="100" width="100" />
-                  <ellipse cx="50" cy="45" fill="black" rx="35" ry="40" />
-                </mask>
-              </defs>
-              <rect fill="rgba(0,0,0,0.2)" height="100" mask="url(#face-mask)" width="100">
-                <title>Face Mask Overlay</title>
-              </rect>
-              <ellipse
-                cx="50"
-                cy="45"
-                fill="none"
-                rx="35"
-                ry="40"
-                stroke={faceQuality.isCentered && faceQuality.hasGoodLighting && faceQuality.noBacklight ? '#4caf50' : 'rgba(255, 255, 255, 0.5)'}
-                strokeDasharray="2 2"
-                strokeWidth="1.5"
-              />
-            </svg>
           </div>
 
           {/* Auto-detected face box */}
@@ -426,7 +423,7 @@ function CameraCaptureDialog({ open, onClose, onCapture }: CameraCaptureDialogPr
           )}
 
           {/* Control Panel */}
-          <div className="absolute top-1/2 right-2 z-10 flex -translate-y-1/2 flex-col gap-3 rounded-2xl bg-black/60 px-1.5 py-3 backdrop-blur-md sm:right-3 sm:gap-4 sm:px-2 sm:py-4">
+          <div className="absolute top-2 right-1 bottom-20 z-20 flex flex-col gap-1 rounded-2xl bg-black/60 px-0.5 py-1.5 backdrop-blur-md sm:top-3 sm:right-3 sm:bottom-3 sm:gap-1.5 sm:px-1 sm:py-2">
             <CaptureSlider icon={<ZoomIn />} label="Zoom" max={3} min={1} onChange={setZoom} step={0.1} value={zoom} />
             <CaptureSlider icon={<MoveVertical />} label="Posição" max={50} min={-50} onChange={setVerticalOffset} step={1} value={verticalOffset} />
             <CaptureSlider icon={<Lightbulb />} label="Brilho" max={150} min={50} onChange={setBrightnessFilter} step={5} value={brightnessFilter} />

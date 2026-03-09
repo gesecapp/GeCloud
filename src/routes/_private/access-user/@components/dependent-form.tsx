@@ -2,7 +2,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Camera, Loader2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-
 import { z } from 'zod';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
@@ -13,6 +12,7 @@ import UploadImage from '@/components/upload-image';
 import { applyCpfMask, applyDateMask, applyPhoneMask } from '@/lib/masks';
 import { useGetGuestById, useGetUserSyncStatus } from '../@hooks/use-access-user-api';
 import type { CreateGuestProps } from '../@interface/access-user.interface';
+import { RegistrationStatusAlert } from './registration-status-alert';
 
 const dependentFormSchema = z.object({
   name: z.string().min(1, 'Campo obrigatório'),
@@ -36,7 +36,7 @@ interface DependentFormProps {
 
 export function DependentForm({ parentId, guestId, onCancel, onSubmit, isLoading }: DependentFormProps) {
   const { data: existingGuest } = useGetGuestById(guestId || null);
-  const { data: syncStatus } = useGetUserSyncStatus(guestId);
+  const { data: syncStatus, isLoading: isLoadingSync } = useGetUserSyncStatus(guestId);
   const [cameraOpen, setCameraOpen] = useState(false);
 
   const form = useForm<DependentFormData>({
@@ -124,9 +124,7 @@ export function DependentForm({ parentId, guestId, onCancel, onSubmit, isLoading
         <ItemTitle className="text-lg">{guestId ? 'Editar' : 'Adicionar'} Dependente</ItemTitle>
       </ItemHeader>
 
-      {syncStatus?.sync_status && (
-        <div className="rounded-md border bg-muted/50 p-3 text-sm">{syncStatus.synchronized ? 'Cadastro sincronizado com sucesso.' : 'Cadastro pendente de sincronização.'}</div>
-      )}
+      <RegistrationStatusAlert syncStatus={syncStatus} isLoading={isLoadingSync} />
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(handleFormSubmit)} className="flex flex-col gap-4">

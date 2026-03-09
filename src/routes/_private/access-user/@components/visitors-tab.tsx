@@ -20,8 +20,8 @@ import { ItemDescription } from '@/components/ui/item';
 import { useAppAuth } from '@/hooks/use-app-auth';
 import { useAccessUserApi, useGetAllSyncStatuses, useGetGuestsByParent } from '../@hooks/use-access-user-api';
 import type { CreateGuestProps } from '../@interface/access-user.interface';
-import { GuestList } from './guest-list';
 import { VisitorForm } from './visitor-form';
+import { VisitorList } from './visitor-list';
 
 export function VisitorsTab() {
   const { userId } = useAppAuth();
@@ -101,7 +101,7 @@ export function VisitorsTab() {
   return (
     <>
       {!isFormVisible ? (
-        <GuestList
+        <VisitorList
           guests={visitors || []}
           syncStatuses={syncStatuses}
           onAdd={() => setIsFormVisible(true)}
@@ -110,7 +110,6 @@ export function VisitorsTab() {
             setIsFormVisible(true);
           }}
           onDelete={(id, name) => setGuestToDelete({ id, name })}
-          title="Visitantes"
         />
       ) : (
         <VisitorForm

@@ -16,7 +16,7 @@ import { useAppAuth } from '@/hooks/use-app-auth';
 import { useAccessUserApi, useGetAllSyncStatuses, useGetGuestsByParent } from '../@hooks/use-access-user-api';
 import type { CreateGuestProps } from '../@interface/access-user.interface';
 import { DependentForm } from './dependent-form';
-import { GuestList } from './guest-list';
+import { DependentList } from './dependent-list';
 
 export function DependentsTab() {
   const { userId } = useAppAuth();
@@ -79,7 +79,7 @@ export function DependentsTab() {
   return (
     <>
       {!isFormVisible ? (
-        <GuestList
+        <DependentList
           guests={dependents || []}
           syncStatuses={syncStatuses}
           onAdd={() => setIsFormVisible(true)}
@@ -88,7 +88,6 @@ export function DependentsTab() {
             setIsFormVisible(true);
           }}
           onDelete={(id, name) => setGuestToDelete({ id, name })}
-          title="Dependentes"
         />
       ) : (
         <DependentForm

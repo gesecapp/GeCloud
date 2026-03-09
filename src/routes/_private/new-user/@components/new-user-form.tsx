@@ -10,6 +10,8 @@ import { Input } from '@/components/ui/input';
 import { ItemActions, ItemContent, ItemGroup, ItemHeader, ItemTitle } from '@/components/ui/item';
 import UploadImage from '@/components/upload-image';
 import { applyCpfMask, applyDateMask, applyPhoneMask } from '@/lib/masks';
+import { RegistrationStatusAlert } from '@/routes/_private/access-user/@components/registration-status-alert';
+import { useGetUserSyncStatus } from '@/routes/_private/access-user/@hooks/use-access-user-api';
 import type { GuestProps } from '@/routes/_private/access-user/@interface/access-user.interface';
 import { type NewUserFormData, newUserFormSchema } from '../@interface/new-user.interface';
 
@@ -21,6 +23,7 @@ interface NewUserFormProps {
 }
 
 export function NewUserForm({ initialData, guestId, onSubmit, isLoading }: NewUserFormProps) {
+  const { data: syncStatus, isLoading: isLoadingSync } = useGetUserSyncStatus(guestId);
   const [cameraOpen, setCameraOpen] = useState(false);
 
   const form = useForm<NewUserFormData>({
@@ -134,6 +137,8 @@ export function NewUserForm({ initialData, guestId, onSubmit, isLoading }: NewUs
       <ItemHeader>
         <ItemTitle className="text-lg">Finalizar Cadastro</ItemTitle>
       </ItemHeader>
+
+      <RegistrationStatusAlert syncStatus={syncStatus} isLoading={isLoadingSync} />
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(handleFormSubmit)} className="flex flex-col gap-4">
