@@ -177,7 +177,7 @@ function PrivacyPolicyPage() {
                     <div className="md:w-1/3 md:text-right">
                       <Button variant="outline" asChild>
                         <a href="mailto:gesec@gesec.com.br?subject=Solicitação%20de%20Exclusão%20de%20Conta">
-                          <Mail className="mr-2 h-4 w-4" />
+                          <Mail className="mr-2 size-4" />
                           Solicitar Exclusão
                         </a>
                       </Button>
@@ -196,7 +196,7 @@ function PrivacyPolicyPage() {
                     <div className="md:w-1/3 md:text-right">
                       <Button variant="outline" asChild>
                         <a href="mailto:gesec@gesec.com.br?subject=Solicitação%20de%20Exclusão%20de%20Dados">
-                          <Mail className="mr-2 h-4 w-4" />
+                          <Mail className="mr-2 size-4" />
                           Solicitar Exclusão
                         </a>
                       </Button>
@@ -209,7 +209,7 @@ function PrivacyPolicyPage() {
 
           <div className="sticky top-8 hidden h-fit lg:block">
             <span className="flex items-center gap-2 text-sm">
-              <AlignLeft className="h-4 w-4" />
+              <AlignLeft className="size-4" />
               Nesta página
             </span>
             <nav className="mt-2 text-sm">

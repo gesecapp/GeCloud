@@ -74,7 +74,7 @@ function ContactPage() {
                   <div className="md:w-1/3 md:text-right">
                     <Button variant="outline" asChild>
                       <a href={action.href} {...(action.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
-                        <action.ActionIcon className="mr-2 h-4 w-4" />
+                        <action.ActionIcon className="mr-2 size-4" />
                         {action.label}
                       </a>
                     </Button>

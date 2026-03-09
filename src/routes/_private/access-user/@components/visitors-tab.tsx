@@ -1,5 +1,6 @@
 import { Copy } from 'lucide-react';
 import { useState } from 'react';
+import QRCode from 'react-qr-code';
 
 import { toast } from 'sonner';
 import DefaultLoading from '@/components/default-loading';
@@ -138,15 +139,18 @@ export function VisitorsTab() {
       </AlertDialog>
 
       <Dialog open={showInviteModal} onOpenChange={setShowInviteModal}>
-        <DialogContent className="text-center">
+        <DialogContent className="max-w-92 text-center">
           <DialogHeader>
             <DialogTitle>Pré-cadastro realizado com sucesso!</DialogTitle>
           </DialogHeader>
           <ItemDescription>Compartilhe o link abaixo para o visitante finalizar o cadastro e inserir a foto.</ItemDescription>
+          <div className="mx-auto my-2 flex justify-center rounded-lg border border-slate-200 bg-white p-4">
+            <QRCode value={invitationLink} size={160} />
+          </div>
           <Input value={invitationLink} readOnly />
           <div className="flex justify-center gap-2">
             <Button onClick={handleCopyUrl} size="sm">
-              <Copy className="mr-2 h-4 w-4" />
+              <Copy className="mr-2 size-4" />
               Copiar Link
             </Button>
             <Button onClick={handleShareWhatsApp} size="sm" variant="outline" className="bg-[#25D366] text-white hover:bg-[#25D366]/90">

@@ -270,15 +270,15 @@ export function VisitorForm({ parentId, guestId, initialData, title, onCancel, o
             <ItemTitle className="font-medium text-sm">Telefones</ItemTitle>
             <div className="flex gap-2">
               <Input value={phoneInput} onChange={(e) => setPhoneInput(applyPhoneMask(e.target.value))} placeholder="Telefone" maxLength={15} className="flex-1" />
-              <Button type="button" variant="outline" size="sm" onClick={handleAddPhone} disabled={!phoneInput.trim()}>
-                <Plus className="mr-1 h-4 w-4" />
+              <Button type="button" variant="outline" onClick={handleAddPhone} disabled={!phoneInput.trim()}>
+                <Plus className="mr-1 size-4" />
                 Adicionar
               </Button>
             </div>
             {telephones.length > 0 ? (
               <ItemContent className="gap-1">
                 {telephones.map((phone, index) => (
-                  <div key={`${index}-${phone}`} className="flex items-center gap-2">
+                  <div key={phone} className="flex items-center gap-2">
                     <Button type="button" variant="ghost" size="icon" className="h-6 w-6 text-destructive" onClick={() => handleRemovePhone(index)}>
                       <Trash2 className="size-4" />
                     </Button>
@@ -299,8 +299,8 @@ export function VisitorForm({ parentId, guestId, initialData, title, onCancel, o
                 <FormLabel>Foto{requireCpfAndImage ? ' *' : ''}</FormLabel>
                 <UploadImage value={urlImages[0]} onAddFile={handleAddFile} height={200} />
                 <ItemActions>
-                  <Button type="button" variant="outline" size="sm" onClick={() => setCameraOpen(true)}>
-                    <Camera className="mr-2 h-4 w-4" />
+                  <Button type="button" variant="outline" onClick={() => setCameraOpen(true)}>
+                    <Camera className="mr-2 size-4" />
                     Câmera
                   </Button>
                 </ItemActions>
@@ -314,8 +314,8 @@ export function VisitorForm({ parentId, guestId, initialData, title, onCancel, o
               Cancelar
             </Button>
             <Button type="submit" disabled={isLoading || cooldown > 0} className={isPartialRegistration ? 'bg-blue-600 text-white hover:bg-blue-700' : ''}>
-              {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              {!isLoading && isPartialRegistration && <Share2 className="mr-2 h-4 w-4" />}
+              {isLoading && <Loader2 className="mr-2 size-4 animate-spin" />}
+              {!isLoading && isPartialRegistration && <Share2 className="mr-2 size-4" />}
               {cooldown > 0 ? `Aguarde ${cooldown}s` : isPartialRegistration ? 'Salvar e Compartilhar Link' : 'Salvar'}
             </Button>
           </ItemActions>

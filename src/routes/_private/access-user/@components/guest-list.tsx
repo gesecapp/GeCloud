@@ -142,7 +142,7 @@ export function GuestList({ guests, syncStatuses, onAdd, onEdit, onDelete, title
         <ItemTitle className="text-lg">{title}</ItemTitle>
         <ItemActions>
           <Button size="sm" onClick={onAdd}>
-            <Plus className="mr-2 h-4 w-4" />
+            <Plus className="mr-2 size-4" />
             Adicionar
           </Button>
         </ItemActions>

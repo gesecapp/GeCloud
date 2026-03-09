@@ -1,6 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { useState } from 'react';
-
 import { Card, CardContent } from '@/components/ui/card';
 import { AuthArea } from './@components/auth-area';
 import { ForgotPasswordArea } from './@components/forgot-password-area';

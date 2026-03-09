@@ -217,8 +217,8 @@ export function DependentForm({ parentId, guestId, onCancel, onSubmit, isLoading
                 <FormLabel>Foto *</FormLabel>
                 <UploadImage value={urlImages[0]} onAddFile={handleAddFile} height={200} />
                 <ItemActions>
-                  <Button type="button" variant="outline" size="sm" onClick={() => setCameraOpen(true)}>
-                    <Camera className="mr-2 h-4 w-4" />
+                  <Button type="button" variant="outline" onClick={() => setCameraOpen(true)}>
+                    <Camera className="mr-2 size-4" />
                     Câmera
                   </Button>
                 </ItemActions>
@@ -232,7 +232,7 @@ export function DependentForm({ parentId, guestId, onCancel, onSubmit, isLoading
               Cancelar
             </Button>
             <Button type="submit" disabled={isLoading}>
-              {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+              {isLoading && <Loader2 className="mr-2 size-4 animate-spin" />}
               Salvar
             </Button>
           </ItemActions>

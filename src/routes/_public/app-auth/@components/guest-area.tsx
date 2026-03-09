@@ -162,8 +162,8 @@ export function GuestArea({ onClose, onGuestLoaded }: GuestAreaProps) {
       <ItemContent className="gap-3">
         <UploadImage value={guestImages[0]} onAddFile={handleAddFile} height={200} />
         <ItemActions>
-          <Button type="button" variant="outline" size="sm" onClick={() => setCameraOpen(true)}>
-            <Camera className="mr-2 h-4 w-4" />
+          <Button type="button" variant="outline" onClick={() => setCameraOpen(true)}>
+            <Camera className="mr-2 size-4" />
             Câmera
           </Button>
         </ItemActions>
