@@ -7,7 +7,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>FBV-G App</string>
+	<string>GeCloud</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -47,5 +47,11 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Este app precisa de acesso à câmera para capturar fotos.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Este app precisa de acesso à galeria para salvar fotos.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Este app precisa de acesso à galeria para selecionar fotos.</string>
 </dict>
 </plist>

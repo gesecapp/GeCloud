@@ -1,3 +1,5 @@
+import { CameraResultType, CameraSource, Camera as CapacitorCamera } from '@capacitor/camera';
+import { Capacitor } from '@capacitor/core';
 import { Camera, Contrast, Focus, Lightbulb, MoveVertical, ScanFace, Sun, X, Zap, ZoomIn } from 'lucide-react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
@@ -59,9 +61,41 @@ function StatusBadge({ icon, label, variant }: { icon: React.ReactNode; label: s
   );
 }
 
-// --- Camera Capture Dialog ---
+// --- Native Camera (Capacitor) ---
 
-function CameraCaptureDialog({ open, onClose, onCapture }: CameraCaptureDialogProps) {
+function NativeCameraCapture({ open, onClose, onCapture }: CameraCaptureDialogProps) {
+  useEffect(() => {
+    if (!open) return;
+
+    const capture = async () => {
+      try {
+        const photo = await CapacitorCamera.getPhoto({
+          quality: 90,
+          allowEditing: false,
+          resultType: CameraResultType.DataUrl,
+          source: CameraSource.Camera,
+          correctOrientation: true,
+        });
+
+        if (photo.dataUrl) {
+          onCapture(photo.dataUrl);
+        }
+      } catch {
+        // User cancelled or permission denied
+      } finally {
+        onClose();
+      }
+    };
+
+    capture();
+  }, [open, onCapture, onClose]);
+
+  return null;
+}
+
+// --- Web Camera Capture Dialog ---
+
+function WebCameraCaptureDialog({ open, onClose, onCapture }: CameraCaptureDialogProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [stream, setStream] = useState<MediaStream | null>(null);
@@ -444,6 +478,15 @@ function CameraCaptureDialog({ open, onClose, onCapture }: CameraCaptureDialogPr
       </DialogContent>
     </Dialog>
   );
+}
+
+// --- Camera Capture Dialog (platform router) ---
+
+function CameraCaptureDialog(props: CameraCaptureDialogProps) {
+  if (Capacitor.isNativePlatform()) {
+    return <NativeCameraCapture {...props} />;
+  }
+  return <WebCameraCaptureDialog {...props} />;
 }
 
 export { CameraCaptureDialog };
