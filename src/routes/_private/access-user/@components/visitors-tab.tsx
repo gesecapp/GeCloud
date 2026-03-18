@@ -62,7 +62,7 @@ export function VisitorsTab() {
             toast.success('Visitante cadastrado! Os dados podem levar alguns instantes para refletirem no sistema.');
             setIsFormVisible(false);
           } else if (responseData.token) {
-            const url = `${window.location.origin}/new-user/${responseData.token}`;
+            const url = `www.gecloud.com.br/${responseData.token}`;
             setInvitationLink(url);
             setShowInviteModal(true);
             setIsFormVisible(false);
