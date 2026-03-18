@@ -11,6 +11,7 @@ import { CameraCaptureDialog } from '@/components/ui/image-capture';
 import { Input } from '@/components/ui/input';
 import { ItemActions, ItemContent, ItemDescription, ItemGroup, ItemHeader, ItemTitle } from '@/components/ui/item';
 import UploadImage from '@/components/upload-image';
+import { compressImageToBase64 } from '@/lib/image-compression';
 import { applyCpfMask, applyDateMask, applyPhoneMask } from '@/lib/masks';
 import { useGetGuestById, useGetUserSyncStatus } from '../@hooks/use-access-user-api';
 import type { CreateGuestProps, GuestProps } from '../@interface/access-user.interface';
@@ -188,9 +189,10 @@ export function VisitorForm({ parentId, guestId, initialData, title, onCancel, o
 
   function handleAddFile(file: File) {
     const reader = new FileReader();
-    reader.onload = (e) => {
+    reader.onload = async (e) => {
       const base64 = e.target?.result as string;
-      form.setValue('url_image', [base64], { shouldValidate: true });
+      const compressed = await compressImageToBase64(base64);
+      form.setValue('url_image', [compressed], { shouldValidate: true });
     };
     reader.readAsDataURL(file);
   }

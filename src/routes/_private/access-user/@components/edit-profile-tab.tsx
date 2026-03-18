@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input';
 import { ItemActions, ItemContent, ItemGroup, ItemHeader, ItemTitle } from '@/components/ui/item';
 import UploadImage from '@/components/upload-image';
 import { useAppAuth } from '@/hooks/use-app-auth';
+import { compressImageToBase64 } from '@/lib/image-compression';
 import { applyDateMask, applyPhoneMask } from '@/lib/masks';
 import { useGetAppUser, useGetUserSyncStatus } from '../@hooks/use-access-user-api';
 import { useEditProfileForm } from '../@hooks/use-edit-profile-form';
@@ -24,9 +25,10 @@ export function EditProfileTab() {
 
   function handleAddFile(file: File) {
     const reader = new FileReader();
-    reader.onload = (e) => {
+    reader.onload = async (e) => {
       const base64 = e.target?.result as string;
-      form.setValue('url_image', [base64], { shouldValidate: true });
+      const compressed = await compressImageToBase64(base64);
+      form.setValue('url_image', [compressed], { shouldValidate: true });
     };
     reader.readAsDataURL(file);
   }

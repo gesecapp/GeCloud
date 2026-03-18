@@ -9,6 +9,7 @@ import { CameraCaptureDialog } from '@/components/ui/image-capture';
 import { Input } from '@/components/ui/input';
 import { ItemActions, ItemContent, ItemGroup, ItemHeader, ItemTitle } from '@/components/ui/item';
 import UploadImage from '@/components/upload-image';
+import { compressImageToBase64 } from '@/lib/image-compression';
 import { applyCpfMask, applyDateMask, applyPhoneMask } from '@/lib/masks';
 import { RegistrationStatusAlert } from '@/routes/_private/access-user/@components/registration-status-alert';
 import { useGetUserSyncStatus } from '@/routes/_private/access-user/@hooks/use-access-user-api';
@@ -121,9 +122,10 @@ export function NewUserForm({ initialData, guestId, onSubmit, isLoading }: NewUs
 
   function handleAddFile(file: File) {
     const reader = new FileReader();
-    reader.onload = (e) => {
+    reader.onload = async (e) => {
       const base64 = e.target?.result as string;
-      form.setValue('url_image', [base64], { shouldValidate: true });
+      const compressed = await compressImageToBase64(base64);
+      form.setValue('url_image', [compressed], { shouldValidate: true });
     };
     reader.readAsDataURL(file);
   }

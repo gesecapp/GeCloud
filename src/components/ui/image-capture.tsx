@@ -5,6 +5,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { compressImageToBase64 } from '@/lib/image-compression';
 import { cn } from '@/lib/utils';
 
 // --- Slider Control ---
@@ -69,6 +70,15 @@ function NativeCameraCapture({ open, onClose, onCapture }: CameraCaptureDialogPr
 
     const capture = async () => {
       try {
+        const permissions = await CapacitorCamera.checkPermissions();
+
+        if (permissions.camera !== 'granted') {
+          const requested = await CapacitorCamera.requestPermissions({ permissions: ['camera'] });
+          if (requested.camera !== 'granted') {
+            return;
+          }
+        }
+
         const photo = await CapacitorCamera.getPhoto({
           quality: 90,
           allowEditing: false,
@@ -78,7 +88,8 @@ function NativeCameraCapture({ open, onClose, onCapture }: CameraCaptureDialogPr
         });
 
         if (photo.dataUrl) {
-          onCapture(photo.dataUrl);
+          const compressed = await compressImageToBase64(photo.dataUrl);
+          onCapture(compressed);
         }
       } catch {
         // User cancelled or permission denied
@@ -303,7 +314,7 @@ function WebCameraCaptureDialog({ open, onClose, onCapture }: CameraCaptureDialo
     };
   }, [open, startCamera]);
 
-  function handleCapture() {
+  async function handleCapture() {
     if (!videoRef.current || !canvasRef.current) return;
 
     const video = videoRef.current;
@@ -341,21 +352,9 @@ function WebCameraCaptureDialog({ open, onClose, onCapture }: CameraCaptureDialo
     context.scale(-1, 1);
     context.drawImage(video, sourceX, clampedSourceY, sourceWidth, sourceHeight, 0, 0, canvas.width, canvas.height);
 
-    let currentQuality = 0.9;
-    let compressedBase64 = '';
-    let iteration = 0;
-    const maxIterations = 5;
-    const targetSizeBytes = 190 * 1024;
-
-    do {
-      compressedBase64 = canvas.toDataURL('image/jpeg', currentQuality);
-      const sizeBytes = compressedBase64.length * 0.75;
-      if (sizeBytes <= targetSizeBytes || iteration >= maxIterations) break;
-      currentQuality -= 0.1;
-      iteration++;
-    } while (iteration <= maxIterations && currentQuality > 0.1);
-
-    onCapture(compressedBase64);
+    const rawDataUrl = canvas.toDataURL('image/jpeg', 1.0);
+    const compressed = await compressImageToBase64(rawDataUrl);
+    onCapture(compressed);
     onClose();
   }
 

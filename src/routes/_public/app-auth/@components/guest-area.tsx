@@ -9,6 +9,7 @@ import { CameraCaptureDialog } from '@/components/ui/image-capture';
 import { Input } from '@/components/ui/input';
 import { ItemActions, ItemContent, ItemDescription, ItemGroup, ItemTitle } from '@/components/ui/item';
 import UploadImage from '@/components/upload-image';
+import { compressImageToBase64 } from '@/lib/image-compression';
 import { applyCpfMask } from '@/lib/masks';
 import { useGuestByCpf, useUpdateGuestImage } from '../@hooks/use-app-login';
 
@@ -100,9 +101,10 @@ export function GuestArea({ onClose, onGuestLoaded }: GuestAreaProps) {
 
   function handleAddFile(file: File) {
     const reader = new FileReader();
-    reader.onload = (e) => {
+    reader.onload = async (e) => {
       const base64 = e.target?.result as string;
-      setGuestImages([base64]);
+      const compressed = await compressImageToBase64(base64);
+      setGuestImages([compressed]);
     };
     reader.readAsDataURL(file);
   }
