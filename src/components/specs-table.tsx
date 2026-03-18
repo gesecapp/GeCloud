@@ -105,7 +105,7 @@ interface ProductSpecs1Props {
   className?: string;
 }
 
-const ProductSpecs1 = ({ categories = DEFAULT_CATEGORIES, title = 'Technical Specifications', className }: ProductSpecs1Props) => {
+const ProductSpecs1 = ({ categories = DEFAULT_CATEGORIES, title = 'Especificações Técnicas', className }: ProductSpecs1Props) => {
   const [openCategories, setOpenCategories] = useState<string[]>(categories.map((c) => c.id));
 
   const toggleCategory = (id: string) => {
@@ -121,11 +121,11 @@ const ProductSpecs1 = ({ categories = DEFAULT_CATEGORIES, title = 'Technical Spe
         <ItemTitle className="text-xl md:text-2xl">{title}</ItemTitle>
         <div className="flex gap-1">
           <Button variant="ghost" size="sm" onClick={expandAll} className="text-muted-foreground text-xs hover:text-foreground">
-            {'expand.all'}
+            Expandir todos
           </Button>
           <Separator orientation="vertical" className="h-4 self-center" />
           <Button variant="ghost" size="sm" onClick={collapseAll} className="text-muted-foreground text-xs hover:text-foreground">
-            {'collapse.all'}
+            Recolher todos
           </Button>
         </div>
       </ItemHeader>

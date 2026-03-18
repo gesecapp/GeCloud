@@ -10,7 +10,7 @@ export default function UploadImage({ value, onAddFile, maxSize, className, heig
     const file = event.target.files?.[0];
     if (file) {
       if (maxSize && file.size > maxSize) {
-        // toast.error('file.more.size');
+        // toast.error('O arquivo excede o limite de tamanho permitido.');
         return;
       }
       onAddFile(file);
@@ -45,7 +45,7 @@ export default function UploadImage({ value, onAddFile, maxSize, className, heig
           <ItemMedia variant="icon" className="text-muted-foreground">
             <ImagePlus className="size-8" />
           </ItemMedia>
-          <ItemDescription className="text-center text-xs">{'arraste e solte'}</ItemDescription>
+          <ItemDescription className="text-center text-xs">Arraste e solte ou clique para adicionar</ItemDescription>
         </div>
       )}
     </button>

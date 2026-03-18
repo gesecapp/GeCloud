@@ -37,7 +37,7 @@ export function DependentsTab() {
         { id: data.id, guestData },
         {
           onSuccess: () => {
-            toast.success('Dependente atualizado com sucesso!');
+            toast.success('Dependente atualizado! As alterações podem levar alguns instantes para refletirem no sistema.');
             setIsFormVisible(false);
             setSelectedGuestId(null);
           },
@@ -49,7 +49,7 @@ export function DependentsTab() {
     } else {
       createGuest.mutate(payload, {
         onSuccess: () => {
-          toast.success('Dependente cadastrado com sucesso!');
+          toast.success('Dependente cadastrado! Os dados podem levar alguns instantes para refletirem no sistema.');
           setIsFormVisible(false);
           setSelectedGuestId(null);
         },

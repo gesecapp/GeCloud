@@ -3,7 +3,7 @@ import { MinusIcon, PlusIcon } from 'lucide-react';
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
-export const title = 'Tabs with Left Plus Trigger';
+export const title = 'Abas com Ícone à Esquerda';
 
 const data: { value: string; title: string; content: string }[] = [];
 

@@ -22,19 +22,19 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 
 const statusConfig: Record<Status, { label: string; className: string }> = {
   completed: {
-    label: 'Completed',
+    label: 'Concluído',
     className: 'bg-emerald-500/15 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400',
   },
   pending: {
-    label: 'Pending',
+    label: 'Pendente',
     className: 'bg-amber-500/15 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400',
   },
   processing: {
-    label: 'Processing',
+    label: 'Processando',
     className: 'bg-blue-500/15 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400',
   },
   cancelled: {
-    label: 'Cancelled',
+    label: 'Cancelado',
     className: 'bg-rose-500/15 text-rose-700 dark:bg-rose-500/10 dark:text-rose-400',
   },
 };
@@ -64,12 +64,12 @@ const columns: ColumnDef<Item>[] = [
   },
   {
     accessorKey: 'name',
-    header: 'Name',
+    header: 'Nome',
     cell: ({ row }) => <span className="font-medium">{row.getValue('name')}</span>,
   },
   {
     accessorKey: 'date',
-    header: 'Date',
+    header: 'Data',
   },
   {
     accessorKey: 'status',
@@ -78,7 +78,7 @@ const columns: ColumnDef<Item>[] = [
   },
   {
     accessorKey: 'amount',
-    header: () => <div className="text-right">Amount</div>,
+    header: () => <div className="text-right">Valor</div>,
     cell: ({ row }) => <div className="text-right font-medium">{row.getValue('amount')}</div>,
   },
   {
@@ -95,16 +95,16 @@ const columns: ColumnDef<Item>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuItem>
               <Eye className="mr-2 size-4" />
-              View details
+              Ver detalhes
             </DropdownMenuItem>
             <DropdownMenuItem>
               <Pencil className="mr-2 size-4" />
-              Edit
+              Editar
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem className="text-destructive">
               <Trash2 className="mr-2 size-4" />
-              Delete
+              Excluir
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -205,7 +205,7 @@ export default function Table05() {
     <div className="w-full max-w-3xl space-y-4">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-2">
-          <span className="text-muted-foreground text-sm">Show</span>
+          <span className="text-muted-foreground text-sm">Mostrar</span>
           <Select value={String(table.getState().pagination.pageSize)} onValueChange={(value) => table.setPageSize(Number(value))}>
             <SelectTrigger className="h-8 w-16">
               <SelectValue />
@@ -218,9 +218,9 @@ export default function Table05() {
               ))}
             </SelectContent>
           </Select>
-          <span className="text-muted-foreground text-sm">entries</span>
+          <span className="text-muted-foreground text-sm">registros</span>
         </div>
-        <Input placeholder="Search..." value={globalFilter} onChange={(e) => setGlobalFilter(e.target.value)} className="h-8 w-full sm:w-64" />
+        <Input placeholder="Buscar..." value={globalFilter} onChange={(e) => setGlobalFilter(e.target.value)} className="h-8 w-full sm:w-64" />
       </div>
 
       <div className="rounded-lg border">
@@ -246,7 +246,7 @@ export default function Table05() {
             ) : (
               <TableRow>
                 <TableCell colSpan={columns.length} className="h-24 text-center">
-                  No results.
+                  Nenhum resultado encontrado.
                 </TableCell>
               </TableRow>
             )}
@@ -256,9 +256,9 @@ export default function Table05() {
 
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-muted-foreground text-sm">
-          Showing {table.getState().pagination.pageIndex * table.getState().pagination.pageSize + 1} to{' '}
-          {Math.min((table.getState().pagination.pageIndex + 1) * table.getState().pagination.pageSize, table.getFilteredRowModel().rows.length)} of{' '}
-          {table.getFilteredRowModel().rows.length} entries
+          Mostrando {table.getState().pagination.pageIndex * table.getState().pagination.pageSize + 1} a{' '}
+          {Math.min((table.getState().pagination.pageIndex + 1) * table.getState().pagination.pageSize, table.getFilteredRowModel().rows.length)} de{' '}
+          {table.getFilteredRowModel().rows.length} registros
         </p>
         <div className="flex items-center gap-1">
           <Button variant="outline" size="icon" className="h-8 w-8" onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>

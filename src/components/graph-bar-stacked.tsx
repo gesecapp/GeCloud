@@ -30,8 +30,8 @@ export function GraphBarStacked() {
   return (
     <Item variant="outline">
       <ItemHeader className="flex-col items-center justify-center">
-        <ItemTitle>Bar Chart - Stacked + Legend</ItemTitle>
-        <ItemDescription>Description</ItemDescription>
+        <ItemTitle>Gráfico de Barras - Empilhado</ItemTitle>
+        <ItemDescription>Visualização de dados combinados por período</ItemDescription>
       </ItemHeader>
       <ItemContent>
         <ChartContainer config={chartConfig}>

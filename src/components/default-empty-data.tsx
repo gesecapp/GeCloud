@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { Bird, CloudOff, Database, FileSearch, Ghost, Inbox, PackageOpen, Search, Telescope } from 'lucide-react';
-import * as React from 'react';
-import { Empty, EmptyDescription, EmptyHeader, EmptyTitle } from '@/components/ui/empty';
+import { Bird, CloudOff, Database, FileSearch, Ghost, Inbox, PackageOpen, Search, Telescope } from "lucide-react";
+import * as React from "react";
+import { Empty, EmptyDescription, EmptyHeader, EmptyTitle } from "@/components/ui/empty";
 
 const ICONS = [FileSearch, Search, Database, Inbox, CloudOff, Ghost, Telescope, Bird, PackageOpen];
 
@@ -15,8 +15,8 @@ const EmptyData = () => {
     <Empty className="border-2 bg-accent/30">
       <EmptyHeader>
         <Icon className="zoom-in-50 size-6 animate-in text-muted-foreground duration-500" />
-        <EmptyTitle>{'not.found'}</EmptyTitle>
-        <EmptyDescription className="font-mono leading-tight">{'not.found.description'}</EmptyDescription>
+        <EmptyTitle>Nenhum registro por enquanto</EmptyTitle>
+        <EmptyDescription className="font-mono leading-tight">Faça novos cadastros, ou altere o filtro de busca.</EmptyDescription>
       </EmptyHeader>
     </Empty>
   );

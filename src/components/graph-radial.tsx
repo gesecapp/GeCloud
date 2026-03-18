@@ -23,8 +23,8 @@ export function GraphRadial() {
   return (
     <Item variant="outline">
       <ItemHeader className="flex-col items-center">
-        <ItemTitle>Radial Chart - Shape</ItemTitle>
-        <ItemDescription>Description</ItemDescription>
+        <ItemTitle>Gráfico Radial</ItemTitle>
+        <ItemDescription>Progresso em relação ao total</ItemDescription>
       </ItemHeader>
       <ItemContent className="flex-1">
         <ChartContainer config={chartConfig} className="max-h-[250px]">
@@ -41,7 +41,7 @@ export function GraphRadial() {
                           {chartData[0].visitors.toLocaleString()}
                         </tspan>
                         <tspan x={viewBox.cx} y={(viewBox.cy || 0) + 24} className="fill-muted-foreground">
-                          Visitors
+                          Visitantes
                         </tspan>
                       </text>
                     );

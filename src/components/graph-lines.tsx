@@ -30,8 +30,8 @@ export function GraphLines() {
   return (
     <Item variant="outline">
       <ItemHeader className="flex-col items-center justify-center">
-        <ItemTitle>Line Chart - Multiple</ItemTitle>
-        <ItemDescription>Description</ItemDescription>
+        <ItemTitle>Gráfico de Linhas</ItemTitle>
+        <ItemDescription>Evolução ao longo do tempo</ItemDescription>
       </ItemHeader>
       <ItemContent>
         <ChartContainer config={chartConfig}>

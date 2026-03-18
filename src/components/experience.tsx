@@ -41,9 +41,9 @@ const Experience = ({ className }: Experience1Props) => {
     <section className={cn('py-32', className)}>
       <div className="container space-y-10 lg:space-y-20">
         <div className="flex w-full items-end justify-between">
-          <h1 className="font-semibold text-5xl tracking-tighter lg:text-6xl">Experience</h1>
+          <h1 className="font-semibold text-5xl tracking-tighter lg:text-6xl">Experiência</h1>
           <Button variant="ghost" size="lg" className="font-semibold">
-            Download CV <Download className="size-4" />
+            Baixar Currículo <Download className="size-4" />
           </Button>
         </div>
 

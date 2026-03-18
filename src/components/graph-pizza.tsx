@@ -57,8 +57,8 @@ export function GraphPizza() {
   return (
     <Item variant="outline">
       <ItemHeader className="flex-col items-center justify-center">
-        <ItemTitle>Pie Chart - Donut with Text</ItemTitle>
-        <ItemDescription>Description</ItemDescription>
+        <ItemTitle>Gráfico de Rosca</ItemTitle>
+        <ItemDescription>Proporção total de visitantes</ItemDescription>
       </ItemHeader>
       <ItemContent>
         {/* IMPORTANT: Do not use 'mx-auto' in ChartContainer className as it breaks the ResponsiveContainer layout */}
@@ -75,7 +75,7 @@ export function GraphPizza() {
                           {totalVisitors.toLocaleString()}
                         </tspan>
                         <tspan x={viewBox.cx} y={(viewBox.cy || 0) + 24} className="fill-muted-foreground">
-                          Visitors
+                          Visitantes
                         </tspan>
                       </text>
                     );

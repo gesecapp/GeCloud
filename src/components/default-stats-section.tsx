@@ -25,23 +25,23 @@ function StatsCard({ count, title, description }: StatsCardProps) {
 const stats = [
   {
     count: '15,000M',
-    title: 'Marathon Runner Progress',
-    description: "You're racing ahead in your marathon training goals.",
+    title: 'Progresso da Maratona',
+    description: "Você está correndo na frente em suas metas de treino.",
   },
   {
     count: '$10,000+',
-    title: 'Invested',
-    description: 'Your financial acumen is paying off—literally.',
+    title: 'Investimento',
+    description: 'Sua perspicácia financeira está valendo a pena — literalmente.',
   },
   {
     count: '4,500+',
-    title: 'Hours of Exercise',
-    description: 'Your commitment to health is inspiring and your stats show it.',
+    title: 'Horas de Exercício',
+    description: 'Seu compromisso com a saúde é inspirador e suas estatísticas mostram isso.',
   },
   {
     count: '8,200+',
-    title: 'Volunteer Hours',
-    description: 'Your contributions have made an impact in your community.',
+    title: 'Horas de Voluntariado',
+    description: 'Suas contribuições causaram um impacto em sua comunidade.',
   },
 ];
 
@@ -50,8 +50,8 @@ export function DefaultStatsSection() {
     <section className="container mx-auto px-8 py-10 lg:py-28">
       {/* Header */}
       <Item className="mb-10 flex-col items-start lg:mb-24">
-        <ItemTitle className="mb-4 font-bold text-4xl">Turn your idea into a startup</ItemTitle>
-        <ItemDescription className="max-w-xl text-base">We`re constantly trying to express ourselves and actualize our dreams. If you have the opportunity to play</ItemDescription>
+        <ItemTitle className="mb-4 font-bold text-4xl">Transforme sua ideia em startup</ItemTitle>
+        <ItemDescription className="max-w-xl text-base">Estamos constantemente tentando nos expressar e concretizar nossos sonhos. Faça parte da mudança.</ItemDescription>
       </Item>
 
       {/* Content Grid */}
@@ -65,14 +65,14 @@ export function DefaultStatsSection() {
                   <Leaf className="mr-2 inline size-10" />
                   1,000Kg
                 </ItemTitle>
-                <ItemDescription className="mt-2 font-bold text-foreground">CO2 Emissions Offset</ItemDescription>
+                <ItemDescription className="mt-2 font-bold text-foreground">Emissões de CO2 Compensadas</ItemDescription>
               </ItemContent>
 
               <Separator className="my-6 w-1/2" />
 
               <ItemContent className="items-center">
-                <ItemTitle className="font-bold text-xl">Eco Warrior Achievement</ItemTitle>
-                <ItemDescription className="mt-1 max-w-md text-center text-base">Congratulations on reaching a new milestone in environmental stewardship!</ItemDescription>
+                <ItemTitle className="font-bold text-xl">Conquista Eco Warrior</ItemTitle>
+                <ItemDescription className="mt-1 max-w-md text-center text-base">Parabéns por alcançar um novo marco na gestão ambiental!</ItemDescription>
               </ItemContent>
             </Item>
           </CardContent>

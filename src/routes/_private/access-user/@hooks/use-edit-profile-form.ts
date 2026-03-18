@@ -123,7 +123,7 @@ export function useEditProfileForm(user: GuestProps | undefined) {
     updateUser.mutate(
       { userData: changedFields, password },
       {
-        onSuccess: () => toast.success('Dados salvos com sucesso!'),
+        onSuccess: () => toast.success('Perfil atualizado! As alterações podem levar alguns instantes para refletirem no sistema.'),
         onError: () => toast.error('Erro ao salvar dados.'),
       },
     );

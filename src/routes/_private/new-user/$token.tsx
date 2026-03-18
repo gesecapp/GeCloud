@@ -40,7 +40,7 @@ function NewUserPage() {
       {
         onSuccess: () => {
           setSuccess(true);
-          toast.success('Cadastro finalizado com sucesso!');
+          toast.success('Cadastro finalizado! Os dados podem levar alguns instantes para refletirem no sistema.');
         },
         onError: (err: any) => {
           const msg = err?.response?.data?.originalError?.message || err?.response?.data?.message || 'Erro ao finalizar cadastro.';

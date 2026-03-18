@@ -70,8 +70,8 @@ export function GraphBreakParts() {
   return (
     <Item variant="outline">
       <ItemHeader className="flex-col items-center">
-        <ItemTitle>Breakdown Chart - Parts</ItemTitle>
-        <ItemDescription>Description</ItemDescription>
+        <ItemTitle>Gráfico de Composição</ItemTitle>
+        <ItemDescription>Análise da distribuição em partes</ItemDescription>
       </ItemHeader>
       <ItemContent>
         <div className="relative w-full" style={{ height: `${barHeight}px` }}>

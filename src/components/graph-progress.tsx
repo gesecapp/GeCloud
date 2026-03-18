@@ -34,7 +34,7 @@ export function GraphProgress() {
             <div className="mt-2 flex items-center justify-between text-sm">
               <span>{item.percentage}&#37;</span>
               <ItemDescription className="line-clamp-none">
-                {item.stat} of {item.limit}
+                {item.stat} de {item.limit}
               </ItemDescription>
             </div>
           </ItemContent>

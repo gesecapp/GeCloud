@@ -16,7 +16,7 @@ const chartData = [
 
 const chartConfig = {
   visitors: {
-    label: 'Visitors',
+    label: 'Visitantes',
   },
   chrome: {
     label: 'Chrome',
@@ -44,8 +44,8 @@ export function GraphBarHorizontal() {
   return (
     <Item variant="outline" className="items-stretch">
       <ItemHeader className="flex-col items-center justify-center">
-        <ItemTitle>Bar Chart - Horizontal</ItemTitle>
-        <ItemDescription>Description</ItemDescription>
+        <ItemTitle>Gráfico de Barras - Horizontal</ItemTitle>
+        <ItemDescription>Visualização comparativa por categorias</ItemDescription>
       </ItemHeader>
       <ItemContent>
         <ChartContainer config={chartConfig}>
