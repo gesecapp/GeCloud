@@ -46,6 +46,7 @@ const ShipIcon = forwardRef<HTMLDivElement, ShipIconProps>(({ className, size = 
         width={size}
         xmlns="http://www.w3.org/2000/svg"
       >
+        <title>Ship</title>
         <motion.path
           animate="animate"
           initial={{ pathLength: 0, opacity: 0 }}
@@ -58,7 +59,6 @@ const ShipIcon = forwardRef<HTMLDivElement, ShipIconProps>(({ className, size = 
           <path d="M12 10v4" />
           <path d="M12 2v3" />
         </motion.g>
-        <title>Ship</title>
       </svg>
     </div>
   );

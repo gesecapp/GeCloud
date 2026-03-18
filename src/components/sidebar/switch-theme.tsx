@@ -129,11 +129,11 @@ const SunIcon = forwardRef<SunIconHandle, HTMLAttributes<HTMLDivElement>>(({ onM
         width="28"
         xmlns="http://www.w3.org/2000/svg"
       >
+        <title>Sun</title>
         <circle cx="12" cy="12" r="4" />
         {['M12 2v2', 'm19.07 4.93-1.41 1.41', 'M20 12h2', 'm17.66 17.66 1.41 1.41', 'M12 20v2', 'm6.34 17.66-1.41 1.41', 'M2 12h2', 'm4.93 4.93 1.41 1.41'].map((d, index) => (
           <motion.path animate={controls} custom={index + 1} d={d} key={d} variants={SUN_PATH_VARIANTS} />
         ))}
-        <title>Sun</title>
       </svg>
     </div>
   );
@@ -197,11 +197,11 @@ const SunDimIcon = forwardRef<SunDimIconHandle, HTMLAttributes<HTMLDivElement>>(
         width="28"
         xmlns="http://www.w3.org/2000/svg"
       >
+        <title>Sun Dim</title>
         <circle cx="12" cy="12" r="4" />
         {['M12 4h.01', 'M20 12h.01', 'M12 20h.01', 'M4 12h.01', 'M17.657 6.343h.01', 'M17.657 17.657h.01', 'M6.343 17.657h.01', 'M6.343 6.343h.01'].map((d, index) => (
           <motion.path animate={controls} custom={index + 1} d={d} key={d} variants={SUN_DIM_PATH_VARIANTS} />
         ))}
-        <title>Sun Dim</title>
       </svg>
     </div>
   );
@@ -273,8 +273,8 @@ const MoonIcon = forwardRef<MoonIconHandle, HTMLAttributes<HTMLDivElement>>(({ o
         width="28"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
         <title>Moon</title>
+        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
       </motion.svg>
     </div>
   );
@@ -363,13 +363,13 @@ const CloudSunIcon = forwardRef<CloudSunIconHandle, HTMLAttributes<HTMLDivElemen
         width="28"
         xmlns="http://www.w3.org/2000/svg"
       >
+        <title>Cloud Sun</title>
         <motion.g animate={cloudControls} initial="normal" variants={CLOUD_VARIANTS}>
           <path d="M13 22H7a5 5 0 1 1 4.9-6H13a3 3 0 0 1 0 6Z" />
         </motion.g>
         {['M12 2v2', 'm4.93 4.93 1.41 1.41', 'M20 12h2', 'm19.07 4.93-1.41 1.41', 'M15.947 12.65a4 4 0 0 0-5.925-4.128'].map((d, index) => (
           <motion.path animate={sunControls} custom={index + 1} d={d} initial="normal" key={d} variants={SUN_VARIANTS} />
         ))}
-        <title>Cloud Sun</title>
       </svg>
     </div>
   );
