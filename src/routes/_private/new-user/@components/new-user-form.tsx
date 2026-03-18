@@ -76,7 +76,7 @@ export function NewUserForm({ initialData, guestId, onSubmit, isLoading }: NewUs
 
     const payload: any = {
       parentId: initialData.parentId || '',
-      user_type: initialData.user_type || 'visitante',
+      user_type: 'visitante',
     };
 
     if (guestId) {
