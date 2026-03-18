@@ -76,7 +76,7 @@ export function NewUserForm({ initialData, guestId, onSubmit, isLoading }: NewUs
 
     const payload: any = {
       parentId: initialData.parentId || '',
-      user_type: 'dependente',
+      user_type: initialData.user_type || 'visitante',
     };
 
     if (guestId) {
@@ -91,7 +91,7 @@ export function NewUserForm({ initialData, guestId, onSubmit, isLoading }: NewUs
       if (data.name !== (initialData?.name || '')) payload.name = data.name;
 
       const cpfClean = data.cpf?.replace(/\D/g, '');
-      if (cpfClean !== (initialData?.cpf || '')) payload.cpf = cpfClean;
+      if (cpfClean) payload.cpf = cpfClean;
 
       const isoDate = formatDateToISO(data.birthDate);
       if (isoDate !== (initialData?.birthday || '')) payload.birthday = isoDate;
