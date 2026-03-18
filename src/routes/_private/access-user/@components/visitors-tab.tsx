@@ -1,9 +1,9 @@
-import { Copy } from "lucide-react";
-import { useState } from "react";
-import QRCode from "react-qr-code";
+import { Copy } from 'lucide-react';
+import { useState } from 'react';
+import QRCode from 'react-qr-code';
 
-import { toast } from "sonner";
-import DefaultLoading from "@/components/default-loading";
+import { toast } from 'sonner';
+import DefaultLoading from '@/components/default-loading';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -13,20 +13,20 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { ItemDescription } from "@/components/ui/item";
-import { useAppAuth } from "@/hooks/use-app-auth";
-import { useAccessUserApi, useGetAllSyncStatuses, useGetGuestsByParent } from "../@hooks/use-access-user-api";
-import type { CreateGuestProps } from "../@interface/access-user.interface";
-import { VisitorForm } from "./visitor-form";
-import { VisitorList } from "./visitor-list";
+} from '@/components/ui/alert-dialog';
+import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { ItemDescription } from '@/components/ui/item';
+import { useAppAuth } from '@/hooks/use-app-auth';
+import { useAccessUserApi, useGetAllSyncStatuses, useGetGuestsByParent } from '../@hooks/use-access-user-api';
+import type { CreateGuestProps } from '../@interface/access-user.interface';
+import { VisitorForm } from './visitor-form';
+import { VisitorList } from './visitor-list';
 
 export function VisitorsTab() {
   const { userId } = useAppAuth();
-  const { data: visitors, isLoading } = useGetGuestsByParent("visitante");
+  const { data: visitors, isLoading } = useGetGuestsByParent('visitante');
   const { data: syncStatuses } = useGetAllSyncStatuses();
   const { createGuest, updateGuest, deleteGuest } = useAccessUserApi();
 
@@ -34,10 +34,10 @@ export function VisitorsTab() {
   const [selectedGuestId, setSelectedGuestId] = useState<string | null>(null);
   const [guestToDelete, setGuestToDelete] = useState<{ id: string; name: string } | null>(null);
   const [showInviteModal, setShowInviteModal] = useState(false);
-  const [invitationLink, setInvitationLink] = useState("");
+  const [invitationLink, setInvitationLink] = useState('');
 
   function handleSubmit(data: CreateGuestProps & { id?: string }) {
-    const payload = { ...data, user_type: "visitante" as const };
+    const payload = { ...data, user_type: 'visitante' as const };
     const hasPhoto = payload.url_image && payload.url_image.length > 0 && !!payload.url_image[0];
 
     if (data.id) {
@@ -46,12 +46,12 @@ export function VisitorsTab() {
         { id: data.id, guestData },
         {
           onSuccess: () => {
-            toast.success("Visitante atualizado! As alterações podem levar alguns instantes para refletirem no sistema.");
+            toast.success('Visitante atualizado! As alterações podem levar alguns instantes para refletirem no sistema.');
             setIsFormVisible(false);
             setSelectedGuestId(null);
           },
           onError: (err: any) => {
-            toast.error(err?.response?.data?.message || "Erro ao atualizar visitante.");
+            toast.error(err?.response?.data?.message || 'Erro ao atualizar visitante.');
           },
         },
       );
@@ -59,7 +59,7 @@ export function VisitorsTab() {
       createGuest.mutate(payload, {
         onSuccess: (responseData) => {
           if (hasPhoto) {
-            toast.success("Visitante cadastrado! Os dados podem levar alguns instantes para refletirem no sistema.");
+            toast.success('Visitante cadastrado! Os dados podem levar alguns instantes para refletirem no sistema.');
             setIsFormVisible(false);
           } else if (responseData.token) {
             const url = `${window.location.origin}/new-user/${responseData.token}`;
@@ -70,7 +70,7 @@ export function VisitorsTab() {
           setSelectedGuestId(null);
         },
         onError: (err: any) => {
-          toast.error(err?.response?.data?.message || "Erro ao cadastrar visitante.");
+          toast.error(err?.response?.data?.message || 'Erro ao cadastrar visitante.');
         },
       });
     }
@@ -81,7 +81,7 @@ export function VisitorsTab() {
     deleteGuest.mutate(guestToDelete.id, {
       onSuccess: () => setGuestToDelete(null),
       onError: (err: any) => {
-        toast.error(err?.response?.data?.message || "Erro ao excluir visitante.");
+        toast.error(err?.response?.data?.message || 'Erro ao excluir visitante.');
         setGuestToDelete(null);
       },
     });
@@ -89,12 +89,12 @@ export function VisitorsTab() {
 
   async function handleCopyUrl() {
     await navigator.clipboard.writeText(invitationLink);
-    toast.success("Link copiado!");
+    toast.success('Link copiado!');
   }
 
   function handleShareWhatsApp() {
     const message = encodeURIComponent(`Olá! Finalize seu cadastro pelo link: ${invitationLink}`);
-    window.open(`https://wa.me/?text=${message}`, "_blank");
+    window.open(`https://wa.me/?text=${message}`, '_blank');
   }
 
   if (isLoading) return <DefaultLoading />;
@@ -114,7 +114,7 @@ export function VisitorsTab() {
         />
       ) : (
         <VisitorForm
-          parentId={userId || ""}
+          parentId={userId || ''}
           guestId={selectedGuestId}
           onCancel={() => {
             setIsFormVisible(false);

@@ -26,7 +26,7 @@ const stats = [
   {
     count: '15,000M',
     title: 'Progresso da Maratona',
-    description: "Você está correndo na frente em suas metas de treino.",
+    description: 'Você está correndo na frente em suas metas de treino.',
   },
   {
     count: '$10,000+',
