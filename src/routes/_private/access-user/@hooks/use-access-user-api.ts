@@ -12,7 +12,8 @@ export const accessUserKeys = {
   user: (userId: string) => [...accessUserKeys.all, 'user', userId] as const,
   syncStatus: (userId: string) => [...accessUserKeys.all, 'sync-status', userId] as const,
   allSyncStatuses: () => [...accessUserKeys.all, 'all-sync-statuses'] as const,
-  guests: (userId: string, userType?: UserType) => [...accessUserKeys.all, 'guests', userId, userType] as const,
+  guests: (userId: string, userType?: UserType) =>
+    userType ? ([...accessUserKeys.all, 'guests', userId, userType] as const) : ([...accessUserKeys.all, 'guests', userId] as const),
   guestDetail: (id: string) => [...accessUserKeys.all, 'guest-detail', id] as const,
 };
 

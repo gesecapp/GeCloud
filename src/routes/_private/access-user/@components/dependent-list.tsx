@@ -121,13 +121,7 @@ export function DependentList({ guests, syncStatuses, onAdd, onEdit }: Dependent
           <div className="text-right">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="h-8 w-8"
-                  onClick={(e) => e.stopPropagation()}
-                  onPointerDown={(e) => e.stopPropagation()}
-                >
+                <Button variant="ghost" size="icon" className="h-8 w-8" onClick={(e) => e.stopPropagation()} onPointerDown={(e) => e.stopPropagation()}>
                   <MoreHorizontal className="size-4" />
                 </Button>
               </DropdownMenuTrigger>
