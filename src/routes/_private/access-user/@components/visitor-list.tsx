@@ -131,11 +131,12 @@ export function VisitorList({ guests, syncStatuses, onAdd, onEdit }: VisitorList
                   size="icon"
                   className="h-8 w-8"
                   onClick={(e) => e.stopPropagation()}
+                  onPointerDown={(e) => e.stopPropagation()}
                 >
                   <MoreHorizontal className="size-4" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
+              <DropdownMenuContent align="end" onClick={(e) => e.stopPropagation()} onPointerDown={(e) => e.stopPropagation()}>
                 <DropdownMenuItem onClick={() => onEdit(row.original._resolvedId)}>
                   <Pencil className="mr-2 size-4" />
                   Editar
