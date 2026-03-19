@@ -4,16 +4,6 @@ import QRCode from 'react-qr-code';
 
 import { toast } from 'sonner';
 import DefaultLoading from '@/components/default-loading';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
@@ -28,11 +18,10 @@ export function VisitorsTab() {
   const { userId } = useAppAuth();
   const { data: visitors, isLoading } = useGetGuestsByParent('visitante');
   const { data: syncStatuses } = useGetAllSyncStatuses();
-  const { createGuest, updateGuest, deleteGuest } = useAccessUserApi();
+  const { createGuest, updateGuest } = useAccessUserApi();
 
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [selectedGuestId, setSelectedGuestId] = useState<string | null>(null);
-  const [guestToDelete, setGuestToDelete] = useState<{ id: string; name: string } | null>(null);
   const [showInviteModal, setShowInviteModal] = useState(false);
   const [invitationLink, setInvitationLink] = useState('');
 
@@ -76,22 +65,6 @@ export function VisitorsTab() {
     }
   }
 
-  function handleConfirmDelete() {
-    if (!guestToDelete) return;
-    deleteGuest.mutate(guestToDelete.id, {
-      onSuccess: () => {
-        toast.success('Visitante excluído com sucesso!');
-        setGuestToDelete(null);
-        setIsFormVisible(false);
-        setSelectedGuestId(null);
-      },
-      onError: (err: any) => {
-        toast.error(err?.response?.data?.message || 'Erro ao excluir visitante.');
-        setGuestToDelete(null);
-      },
-    });
-  }
-
   async function handleCopyUrl() {
     await navigator.clipboard.writeText(invitationLink);
     toast.success('Link copiado!');
@@ -115,7 +88,6 @@ export function VisitorsTab() {
             setSelectedGuestId(id);
             setIsFormVisible(true);
           }}
-          onDelete={(id, name) => setGuestToDelete({ id, name })}
         />
       ) : (
         <VisitorForm
@@ -129,19 +101,6 @@ export function VisitorsTab() {
           isLoading={createGuest.isPending || updateGuest.isPending}
         />
       )}
-
-      <AlertDialog open={!!guestToDelete} onOpenChange={() => setGuestToDelete(null)}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Excluir Visitante</AlertDialogTitle>
-            <AlertDialogDescription>Tem certeza que deseja excluir este visitante?</AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancelar</AlertDialogCancel>
-            <AlertDialogAction onClick={handleConfirmDelete}>Confirmar</AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
 
       <Dialog open={showInviteModal} onOpenChange={setShowInviteModal}>
         <DialogContent className="max-w-92 text-center">
