@@ -9,15 +9,15 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root';
+import { Route as PublicRouteImport } from './routes/_public';
 import { Route as PrivateRouteImport } from './routes/_private';
+import { Route as IndexRouteImport } from './routes/index';
+import { Route as PublicPrivacyPolicyIndexRouteImport } from './routes/_public/privacy-policy/index';
+import { Route as PublicContactIndexRouteImport } from './routes/_public/contact/index';
+import { Route as PublicAppAuthIndexRouteImport } from './routes/_public/app-auth/index';
 import { Route as PrivateAccessUserIndexRouteImport } from './routes/_private/access-user/index';
 import { Route as PrivateNewUserTokenRouteImport } from './routes/_private/new-user/$token';
-import { Route as PublicRouteImport } from './routes/_public';
-import { Route as PublicAppAuthIndexRouteImport } from './routes/_public/app-auth/index';
 import { Route as PublicAppAuthResetPasswordTokenRouteImport } from './routes/_public/app-auth/reset-password/$token';
-import { Route as PublicContactIndexRouteImport } from './routes/_public/contact/index';
-import { Route as PublicPrivacyPolicyIndexRouteImport } from './routes/_public/privacy-policy/index';
-import { Route as IndexRouteImport } from './routes/index';
 
 const PublicRoute = PublicRouteImport.update({
   id: '/_public',
