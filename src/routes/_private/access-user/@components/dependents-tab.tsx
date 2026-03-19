@@ -66,6 +66,8 @@ export function DependentsTab() {
       onSuccess: () => {
         toast.success('Dependente excluído com sucesso!');
         setGuestToDelete(null);
+        setIsFormVisible(false);
+        setSelectedGuestId(null);
       },
       onError: (err: any) => {
         toast.error(err?.response?.data?.message || 'Erro ao excluir dependente.');

@@ -79,7 +79,12 @@ export function VisitorsTab() {
   function handleConfirmDelete() {
     if (!guestToDelete) return;
     deleteGuest.mutate(guestToDelete.id, {
-      onSuccess: () => setGuestToDelete(null),
+      onSuccess: () => {
+        toast.success('Visitante excluído com sucesso!');
+        setGuestToDelete(null);
+        setIsFormVisible(false);
+        setSelectedGuestId(null);
+      },
       onError: (err: any) => {
         toast.error(err?.response?.data?.message || 'Erro ao excluir visitante.');
         setGuestToDelete(null);
