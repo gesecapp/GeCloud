@@ -108,7 +108,21 @@ export function useAccessUserApi() {
       const response = await api.post<{ data: GuestResponse; statusCode: number; message: string }>('/app/guests', guest, { headers: authHeaders(token) });
       return response.data.data;
     },
-    onSuccess: () => {
+    onSuccess: (responseData, newGuest) => {
+      const createdGuest: GuestProps = {
+        id: responseData.id,
+        cpf: newGuest.cpf,
+        name: newGuest.name,
+        birthday: newGuest.birthday,
+        telephones: newGuest.telephones,
+        email: newGuest.email,
+        url_image: newGuest.url_image,
+        user_type: newGuest.user_type,
+        registration_complete: false,
+      };
+      queryClient.setQueriesData<GuestProps[]>({ queryKey: accessUserKeys.guests(userId || '', newGuest.user_type) }, (oldData) =>
+        oldData ? [...oldData, createdGuest] : [createdGuest],
+      );
       queryClient.invalidateQueries({ queryKey: accessUserKeys.guests(userId || '') });
     },
   });
@@ -117,8 +131,12 @@ export function useAccessUserApi() {
     mutationFn: async ({ id, guestData }: { id: string; guestData: Omit<GuestProps, '_id' | 'id'> }) => {
       await api.put(`/app/guests/${id}`, guestData, { headers: authHeaders(token) });
     },
-    onSuccess: () => {
+    onSuccess: (_data, { id, guestData }) => {
+      queryClient.setQueriesData<GuestProps[]>({ queryKey: accessUserKeys.guests(userId || '') }, (oldData) =>
+        oldData?.map((guest) => ((guest._id || guest.id) === id ? { ...guest, ...guestData } : guest)),
+      );
       queryClient.invalidateQueries({ queryKey: accessUserKeys.guests(userId || '') });
+      queryClient.invalidateQueries({ queryKey: accessUserKeys.guestDetail(id) });
     },
   });
 
@@ -126,7 +144,8 @@ export function useAccessUserApi() {
     mutationFn: async (id: string) => {
       await api.delete(`/app/guests/${id}`, { headers: authHeaders(token) });
     },
-    onSuccess: () => {
+    onSuccess: (_data, deletedId) => {
+      queryClient.setQueriesData<GuestProps[]>({ queryKey: accessUserKeys.guests(userId || '') }, (oldData) => oldData?.filter((guest) => (guest._id || guest.id) !== deletedId));
       queryClient.invalidateQueries({ queryKey: accessUserKeys.guests(userId || '') });
     },
   });
