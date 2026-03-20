@@ -233,7 +233,7 @@ function CameraCaptureDialog({ open, onClose, onCapture }: CameraCaptureDialogPr
           <div className="pointer-events-none absolute inset-0 z-5 flex items-center justify-center">
             <div
               className="aspect-3/4 w-[min(calc((100%-32px)*0.55),calc((100dvh-100px)*0.75*0.55))] rounded-[50%] border-2 border-white/30 border-dashed transition-colors duration-300"
-              style={{ boxShadow: '0 0 0 9999px rgba(0, 0, 0, 0.85)' }}
+              style={{ boxShadow: '0 0 0 9999px rgba(0, 0, 0, 0.4)' }}
             />
           </div>
 
