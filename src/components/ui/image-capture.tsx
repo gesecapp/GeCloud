@@ -170,12 +170,14 @@ function CameraCaptureDialog({ open, onClose, onCapture }: CameraCaptureDialogPr
     <Dialog open={open} onOpenChange={(v) => !v && onClose()}>
       {open && isNative && (
         <style>{`
-          .camera-preview-active body,
-          .camera-preview-active html,
-          .camera-preview-active #root,
-          .camera-preview-active [data-slot="dialog-overlay"],
-          .camera-preview-active [data-slot="dialog-content"] {
+          html.camera-preview-active,
+          html.camera-preview-active body,
+          html.camera-preview-active [data-slot="dialog-overlay"],
+          html.camera-preview-active [data-slot="dialog-content"] {
             background: transparent !important;
+          }
+          html.camera-preview-active #app {
+            display: none !important;
           }
         `}</style>
       )}
