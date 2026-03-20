@@ -9,7 +9,7 @@ import type { CreateGuestProps } from '@/routes/_private/access-user/@interface/
 import { NewUserForm } from './@components/new-user-form';
 import { useFinalizeGuestInvite, useGetGuestByInviteToken } from './@hooks/use-new-user-api';
 
-export const Route = createFileRoute('/_private/new-user/$token')({
+export const Route = createFileRoute('/_public/new-user/$token')({
   component: NewUserPage,
 });
 

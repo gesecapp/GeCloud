@@ -16,7 +16,7 @@ import { Route as PublicPrivacyPolicyIndexRouteImport } from './routes/_public/p
 import { Route as PublicContactIndexRouteImport } from './routes/_public/contact/index';
 import { Route as PublicAppAuthIndexRouteImport } from './routes/_public/app-auth/index';
 import { Route as PrivateAccessUserIndexRouteImport } from './routes/_private/access-user/index';
-import { Route as PrivateNewUserTokenRouteImport } from './routes/_private/new-user/$token';
+import { Route as PublicNewUserTokenRouteImport } from './routes/_public/new-user/$token';
 import { Route as PublicAppAuthResetPasswordTokenRouteImport } from './routes/_public/app-auth/reset-password/$token';
 
 const PublicRoute = PublicRouteImport.update({
@@ -53,10 +53,10 @@ const PrivateAccessUserIndexRoute = PrivateAccessUserIndexRouteImport.update({
   path: '/access-user/',
   getParentRoute: () => PrivateRoute,
 } as any);
-const PrivateNewUserTokenRoute = PrivateNewUserTokenRouteImport.update({
+const PublicNewUserTokenRoute = PublicNewUserTokenRouteImport.update({
   id: '/new-user/$token',
   path: '/new-user/$token',
-  getParentRoute: () => PrivateRoute,
+  getParentRoute: () => PublicRoute,
 } as any);
 const PublicAppAuthResetPasswordTokenRoute =
   PublicAppAuthResetPasswordTokenRouteImport.update({
@@ -67,7 +67,7 @@ const PublicAppAuthResetPasswordTokenRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute;
-  '/new-user/$token': typeof PrivateNewUserTokenRoute;
+  '/new-user/$token': typeof PublicNewUserTokenRoute;
   '/access-user/': typeof PrivateAccessUserIndexRoute;
   '/app-auth/': typeof PublicAppAuthIndexRoute;
   '/contact/': typeof PublicContactIndexRoute;
@@ -76,7 +76,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute;
-  '/new-user/$token': typeof PrivateNewUserTokenRoute;
+  '/new-user/$token': typeof PublicNewUserTokenRoute;
   '/access-user': typeof PrivateAccessUserIndexRoute;
   '/app-auth': typeof PublicAppAuthIndexRoute;
   '/contact': typeof PublicContactIndexRoute;
@@ -88,7 +88,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute;
   '/_private': typeof PrivateRouteWithChildren;
   '/_public': typeof PublicRouteWithChildren;
-  '/_private/new-user/$token': typeof PrivateNewUserTokenRoute;
+  '/_public/new-user/$token': typeof PublicNewUserTokenRoute;
   '/_private/access-user/': typeof PrivateAccessUserIndexRoute;
   '/_public/app-auth/': typeof PublicAppAuthIndexRoute;
   '/_public/contact/': typeof PublicContactIndexRoute;
@@ -119,7 +119,7 @@ export interface FileRouteTypes {
     | '/'
     | '/_private'
     | '/_public'
-    | '/_private/new-user/$token'
+    | '/_public/new-user/$token'
     | '/_private/access-user/'
     | '/_public/app-auth/'
     | '/_public/contact/'
@@ -184,12 +184,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivateAccessUserIndexRouteImport;
       parentRoute: typeof PrivateRoute;
     };
-    '/_private/new-user/$token': {
-      id: '/_private/new-user/$token';
+    '/_public/new-user/$token': {
+      id: '/_public/new-user/$token';
       path: '/new-user/$token';
       fullPath: '/new-user/$token';
-      preLoaderRoute: typeof PrivateNewUserTokenRouteImport;
-      parentRoute: typeof PrivateRoute;
+      preLoaderRoute: typeof PublicNewUserTokenRouteImport;
+      parentRoute: typeof PublicRoute;
     };
     '/_public/app-auth/reset-password/$token': {
       id: '/_public/app-auth/reset-password/$token';
@@ -202,12 +202,10 @@ declare module '@tanstack/react-router' {
 }
 
 interface PrivateRouteChildren {
-  PrivateNewUserTokenRoute: typeof PrivateNewUserTokenRoute;
   PrivateAccessUserIndexRoute: typeof PrivateAccessUserIndexRoute;
 }
 
 const PrivateRouteChildren: PrivateRouteChildren = {
-  PrivateNewUserTokenRoute: PrivateNewUserTokenRoute,
   PrivateAccessUserIndexRoute: PrivateAccessUserIndexRoute,
 };
 
@@ -215,6 +213,7 @@ const PrivateRouteWithChildren =
   PrivateRoute._addFileChildren(PrivateRouteChildren);
 
 interface PublicRouteChildren {
+  PublicNewUserTokenRoute: typeof PublicNewUserTokenRoute;
   PublicAppAuthIndexRoute: typeof PublicAppAuthIndexRoute;
   PublicContactIndexRoute: typeof PublicContactIndexRoute;
   PublicPrivacyPolicyIndexRoute: typeof PublicPrivacyPolicyIndexRoute;
@@ -222,6 +221,7 @@ interface PublicRouteChildren {
 }
 
 const PublicRouteChildren: PublicRouteChildren = {
+  PublicNewUserTokenRoute: PublicNewUserTokenRoute,
   PublicAppAuthIndexRoute: PublicAppAuthIndexRoute,
   PublicContactIndexRoute: PublicContactIndexRoute,
   PublicPrivacyPolicyIndexRoute: PublicPrivacyPolicyIndexRoute,

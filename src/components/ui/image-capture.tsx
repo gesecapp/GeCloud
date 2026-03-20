@@ -32,7 +32,7 @@ function CaptureSlider({
       <div className="text-white [&_svg]:size-3.5 sm:[&_svg]:size-4">{icon}</div>
       <input
         aria-label={label}
-        className="w-1 flex-1 cursor-pointer appearance-none rounded-full bg-white/30 accent-white [&::-webkit-slider-thumb]:size-2.5 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white sm:[&::-webkit-slider-thumb]:size-3"
+        className="min-h-0 w-1 flex-1 cursor-pointer appearance-none rounded-full bg-white/30 accent-white [&::-webkit-slider-thumb]:size-2.5 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white sm:[&::-webkit-slider-thumb]:size-3"
         max={max}
         min={min}
         onChange={(e) => onChange(Number(e.target.value))}
@@ -106,7 +106,7 @@ function NativeCameraCapture({ open, onClose, onCapture }: CameraCaptureDialogPr
 
 // --- Web Camera Capture Dialog ---
 
-function WebCameraCaptureDialog({ open, onClose, onCapture }: CameraCaptureDialogProps) {
+function WebCameraCaptureDialog({ open, onClose, onCapture, onCameraError }: CameraCaptureDialogProps & { onCameraError?: () => void }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [stream, setStream] = useState<MediaStream | null>(null);
@@ -276,9 +276,9 @@ function WebCameraCaptureDialog({ open, onClose, onCapture }: CameraCaptureDialo
       const capabilities = track.getCapabilities?.() as any;
       if (capabilities?.focusMode?.includes('single-shot')) setFocusSupported(true);
     } catch {
-      // Camera access failed or was denied
+      onCameraError?.();
     }
-  }, []);
+  }, [onCameraError]);
 
   useEffect(() => {
     if (videoRef.current && stream) {
@@ -390,8 +390,12 @@ function WebCameraCaptureDialog({ open, onClose, onCapture }: CameraCaptureDialo
           <canvas ref={canvasRef} className="hidden" />
 
           {/* Capture frame 3:4 with corner markers */}
-          <div className="pointer-events-none absolute inset-0 z-5 flex items-center justify-center">
-            <div className="relative aspect-3/4 max-h-[calc(100%-32px)] w-[calc(100%-32px)] rounded-xl border-2 border-white/30">
+          {/* Capture frame 3:4 with darkened overlay mask */}
+          <div className="pointer-events-none absolute inset-0 z-5 flex items-center justify-center overflow-hidden">
+            <div
+              className="relative aspect-3/4 max-h-[calc(100%-32px)] w-[calc(100%-32px)] rounded-xl border-2 border-white/30"
+              style={{ boxShadow: '0 0 0 9999px rgba(0, 0, 0, 0.55)' }}
+            >
               {/* Corner markers */}
               <div className="absolute -top-px -left-px size-6 rounded-tl-xl border-white/50 border-t-[3px] border-l-[3px]" />
               <div className="absolute -top-px -right-px size-6 rounded-tr-xl border-white/50 border-t-[3px] border-r-[3px]" />
@@ -456,7 +460,7 @@ function WebCameraCaptureDialog({ open, onClose, onCapture }: CameraCaptureDialo
           )}
 
           {/* Control Panel */}
-          <div className="absolute top-2 right-1 bottom-20 z-20 flex flex-col gap-1 rounded-2xl bg-black/60 px-0.5 py-1.5 backdrop-blur-md sm:top-3 sm:right-3 sm:bottom-3 sm:gap-1.5 sm:px-1 sm:py-2">
+          <div className="absolute top-2 right-1 bottom-20 z-20 flex flex-col justify-between gap-1 overflow-hidden rounded-2xl bg-black/60 px-0.5 py-1.5 backdrop-blur-md sm:top-3 sm:right-3 sm:bottom-3 sm:gap-1.5 sm:px-1 sm:py-2">
             <CaptureSlider icon={<ZoomIn />} label="Zoom" max={3} min={1} onChange={setZoom} step={0.1} value={zoom} />
             <CaptureSlider icon={<MoveVertical />} label="Posição" max={50} min={-50} onChange={setVerticalOffset} step={1} value={verticalOffset} />
             <CaptureSlider icon={<Lightbulb />} label="Brilho" max={150} min={50} onChange={setBrightnessFilter} step={5} value={brightnessFilter} />
@@ -482,10 +486,22 @@ function WebCameraCaptureDialog({ open, onClose, onCapture }: CameraCaptureDialo
 // --- Camera Capture Dialog (platform router) ---
 
 function CameraCaptureDialog(props: CameraCaptureDialogProps) {
-  if (Capacitor.isNativePlatform()) {
+  const [useNativeFallback, setUseNativeFallback] = useState(false);
+
+  if (useNativeFallback && Capacitor.isNativePlatform()) {
     return <NativeCameraCapture {...props} />;
   }
-  return <WebCameraCaptureDialog {...props} />;
+
+  return (
+    <WebCameraCaptureDialog
+      {...props}
+      onCameraError={() => {
+        if (Capacitor.isNativePlatform()) {
+          setUseNativeFallback(true);
+        }
+      }}
+    />
+  );
 }
 
 export { CameraCaptureDialog };
