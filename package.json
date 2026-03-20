@@ -24,8 +24,8 @@
     "routes:ai": "npx tsx src/config/extractRoutesMetadata.ts"
   },
   "dependencies": {
+    "@capacitor-community/camera-preview": "^7.0.5",
     "@capacitor/android": "^8",
-    "@capacitor/camera": "^8.0.2",
     "@capacitor/cli": "^8",
     "@capacitor/core": "^8",
     "@capacitor/ios": "^8",

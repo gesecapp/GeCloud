@@ -11,12 +11,12 @@ importers:
 
   .:
     dependencies:
+      '@capacitor-community/camera-preview':
+        specifier: ^7.0.5
+        version: 7.0.5(@capacitor/core@8.1.0)
       '@capacitor/android':
         specifier: ^8
         version: 8.1.0(@capacitor/core@8.1.0)
-      '@capacitor/camera':
-        specifier: ^8.0.2
-        version: 8.0.2(@capacitor/core@8.1.0)
       '@capacitor/cli':
         specifier: ^8
         version: 8.1.0
@@ -461,6 +461,12 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@capacitor-community/camera-preview@7.0.5':
+    resolution: {integrity: sha512-yxHoCs5ZmPOrELQSFc+A5mFwjwm9JPU1WFsfpxaFnh6RMeClF8tZDk6EcrlRKdymi1w9X/DGWE/Q8Tn8OJ/k+Q==}
+    engines: {node: '>=18.0.0', npm: '>=9.0.0'}
+    peerDependencies:
+      '@capacitor/core': '>=7.0.0'
+
   '@capacitor/android@8.1.0':
     resolution: {integrity: sha512-z0acTPxj5DCy/U2FU7w+GA93oC+wdyKnsOcRg5rutDmSYa8Do1tzYqApKgf+hnuTNPbtrCTHp0Zy1cLiK/4MEw==}
     peerDependencies:
@@ -470,11 +476,6 @@ packages:
     resolution: {integrity: sha512-ohz/OUq61Y1Fc6aVSt0uDrUdeOA7oTH4pkWDbv/8I3UrPjH7oPkzYhShuDRUjekNp9RBi198VSFdt0CetpEOzw==}
     engines: {node: '>=10.3.0'}
     hasBin: true
-
-  '@capacitor/camera@8.0.2':
-    resolution: {integrity: sha512-v2BsKFjJSg0dMl/UO7jEvrAvjChCGrzQG5jx4yN2t8LnC7eFDh0YkSg1t+AMNveSDSKCvAsTk/JUzzr5VAvzmg==}
-    peerDependencies:
-      '@capacitor/core': '>=8.0.0'
 
   '@capacitor/cli@5.7.8':
     resolution: {integrity: sha512-qN8LDlREMhrYhOvVXahoJVNkP8LP55/YPRJrzTAFrMqlNJC18L3CzgWYIblFPnuwfbH/RxbfoZT/ydkwgVpMrw==}
@@ -5893,6 +5894,10 @@ snapshots:
   '@biomejs/cli-win32-x64@2.4.5':
     optional: true
 
+  '@capacitor-community/camera-preview@7.0.5(@capacitor/core@8.1.0)':
+    dependencies:
+      '@capacitor/core': 8.1.0
+
   '@capacitor/android@8.1.0(@capacitor/core@8.1.0)':
     dependencies:
       '@capacitor/core': 8.1.0
@@ -5918,10 +5923,6 @@ snapshots:
       - encoding
       - supports-color
       - typescript
-
-  '@capacitor/camera@8.0.2(@capacitor/core@8.1.0)':
-    dependencies:
-      '@capacitor/core': 8.1.0
 
   '@capacitor/cli@5.7.8':
     dependencies:
