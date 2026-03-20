@@ -25,7 +25,9 @@
     "format": "biome check --write --unsafe && biome format --write .",
     "check": "tsc --noEmit",
     "routes": "npx tsx src/config/extractRoutes.ts && pnpm run format",
-    "routes:ai": "npx tsx src/config/extractRoutesMetadata.ts"
+    "capgo:build:ios": "npx @capgo/cli@latest build request br.com.gecloud --platform ios",
+    "capgo:build:android": "npx @capgo/cli@latest build request br.com.gecloud --platform android",
+    "capgo:cred:save": "npx @capgo/cli@latest build credentials save"
   },
   "dependencies": {
     "@capacitor/android": "^8",
