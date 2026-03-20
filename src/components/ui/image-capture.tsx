@@ -65,6 +65,7 @@ function CameraCaptureDialog({ open, onClose, onCapture }: CameraCaptureDialogPr
         toBack: true,
         enableOpacity: true,
         disableAudio: true,
+        aspectMode: 'cover',
       }).catch(console.error);
     } else {
       document.documentElement.classList.remove('camera-preview-active');
@@ -170,7 +171,7 @@ function CameraCaptureDialog({ open, onClose, onCapture }: CameraCaptureDialogPr
 
   return (
     <Dialog open={open} onOpenChange={(v) => !v && onClose()}>
-      {open && (
+      {open && isNative && (
         <style>{`
           .camera-preview-active body,
           .camera-preview-active html,
@@ -182,7 +183,11 @@ function CameraCaptureDialog({ open, onClose, onCapture }: CameraCaptureDialogPr
         `}</style>
       )}
       <DialogContent
-        className="flex! h-[min(90vh,800px)] max-w-150 flex-col gap-0 overflow-hidden border-none bg-transparent p-0 shadow-none sm:min-w-fit!"
+        className={cn(
+          "flex! h-[min(90vh,800px)] max-w-150 flex-col gap-0 overflow-hidden border-none p-0 sm:min-w-fit!",
+          isNative ? "bg-transparent shadow-none" : "bg-black shadow-lg"
+        )}
+        style={isNative ? { boxShadow: '0 0 0 9999px #000' } : {}}
         showCloseButton={false}
       >
         <DialogHeader className="relative z-30 flex shrink-0 flex-row items-center justify-between bg-black/40 px-2 py-1 text-white backdrop-blur-md sm:px-3 sm:py-2">
@@ -199,7 +204,7 @@ function CameraCaptureDialog({ open, onClose, onCapture }: CameraCaptureDialogPr
           <div className="pointer-events-none absolute inset-0 z-5 flex items-center justify-center overflow-hidden">
             <div
               className="relative aspect-3/4 max-h-[calc(100%-32px)] w-[calc(100%-32px)] rounded-xl border-2 border-white/30"
-              style={{ boxShadow: '0 0 0 9999px rgba(0, 0, 0, 0.55)' }}
+              style={{ boxShadow: '0 0 0 9999px rgba(0, 0, 0, 0.85)' }}
             >
               {/* Corner markers */}
               <div className="absolute -top-px -left-px size-6 rounded-tl-xl border-white/50 border-t-[3px] border-l-[3px]" />
