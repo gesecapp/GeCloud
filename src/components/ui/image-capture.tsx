@@ -220,11 +220,8 @@ function CameraCaptureDialog({ open, onClose, onCapture }: CameraCaptureDialogPr
           <div id="camera-preview-container" className="absolute inset-0 -z-10 flex items-center justify-center bg-transparent" />
 
           {/* Capture frame 3:4 */}
-          <div className="pointer-events-none absolute inset-0 z-5 flex items-center justify-center overflow-hidden">
-            <div
-              className="relative aspect-3/4 max-h-[calc(100%-32px)] w-[calc(100%-32px)] rounded-xl border-2 border-white/30"
-              style={{ boxShadow: '0 0 0 9999px rgba(0, 0, 0, 0.85)' }}
-            >
+          <div className="pointer-events-none absolute inset-0 z-6 flex items-center justify-center overflow-hidden">
+            <div className="relative aspect-3/4 max-h-[calc(100%-32px)] w-[calc(100%-32px)] rounded-xl border-2 border-white/30">
               {/* Corner markers */}
               <div className="absolute -top-px -left-px size-6 rounded-tl-xl border-white/50 border-t-[3px] border-l-[3px]" />
               <div className="absolute -top-px -right-px size-6 rounded-tr-xl border-white/50 border-t-[3px] border-r-[3px]" />
@@ -233,8 +230,11 @@ function CameraCaptureDialog({ open, onClose, onCapture }: CameraCaptureDialogPr
             </div>
           </div>
 
-          <div className="pointer-events-none absolute inset-0 z-6 flex items-center justify-center">
-            <div className="aspect-3/4 w-[min(calc((100%-32px)*0.55),calc((100dvh-100px)*0.75*0.55))] rounded-full border-2 border-white/30 border-dashed transition-colors duration-300" />
+          <div className="pointer-events-none absolute inset-0 z-5 flex items-center justify-center">
+            <div
+              className="aspect-3/4 w-[min(calc((100%-32px)*0.55),calc((100dvh-100px)*0.75*0.55))] rounded-[50%] border-2 border-white/30 border-dashed transition-colors duration-300"
+              style={{ boxShadow: '0 0 0 9999px rgba(0, 0, 0, 0.85)' }}
+            />
           </div>
 
           <Button
