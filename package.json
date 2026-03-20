@@ -10,6 +10,9 @@
   "pnpm": {
     "overrides": {
       "sharp": "^0.34.5"
+    },
+    "patchedDependencies": {
+      "@capgo/camera-preview": "patches/@capgo__camera-preview.patch"
     }
   },
   "scripts": {
@@ -24,7 +27,6 @@
     "routes:ai": "npx tsx src/config/extractRoutesMetadata.ts"
   },
   "dependencies": {
-    "@capacitor-community/camera-preview": "^7.0.5",
     "@capacitor/android": "^8",
     "@capacitor/cli": "^8",
     "@capacitor/core": "^8",

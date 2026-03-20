@@ -7,13 +7,15 @@ settings:
 overrides:
   sharp: ^0.34.5
 
+patchedDependencies:
+  '@capgo/camera-preview':
+    hash: a9e9b3d852e7698cae22865faf4b5bc80b7b2bd42a9647cae10054d696911a7e
+    path: patches/@capgo__camera-preview.patch
+
 importers:
 
   .:
     dependencies:
-      '@capacitor-community/camera-preview':
-        specifier: ^7.0.5
-        version: 7.0.5(@capacitor/core@8.2.0)
       '@capacitor/android':
         specifier: ^8
         version: 8.2.0(@capacitor/core@8.2.0)
@@ -28,7 +30,7 @@ importers:
         version: 8.2.0(@capacitor/core@8.2.0)
       '@capgo/camera-preview':
         specifier: ^8.1.4
-        version: 8.1.4(@capacitor/core@8.2.0)
+        version: 8.1.4(patch_hash=a9e9b3d852e7698cae22865faf4b5bc80b7b2bd42a9647cae10054d696911a7e)(@capacitor/core@8.2.0)
       '@faker-js/faker':
         specifier: ^10
         version: 10.3.0
@@ -463,12 +465,6 @@ packages:
     engines: {node: '>=14.21.3'}
     cpu: [x64]
     os: [win32]
-
-  '@capacitor-community/camera-preview@7.0.5':
-    resolution: {integrity: sha512-yxHoCs5ZmPOrELQSFc+A5mFwjwm9JPU1WFsfpxaFnh6RMeClF8tZDk6EcrlRKdymi1w9X/DGWE/Q8Tn8OJ/k+Q==}
-    engines: {node: '>=18.0.0', npm: '>=9.0.0'}
-    peerDependencies:
-      '@capacitor/core': '>=7.0.0'
 
   '@capacitor/android@8.2.0':
     resolution: {integrity: sha512-XLm5OsWLPfXQxDxzFS7SOdMEgGvW+2c7TGLXkTR2cSKdkWK5Abns4imlT5qghKYhjM9r74IrDkBWg/9ALUGNKQ==}
@@ -5916,10 +5912,6 @@ snapshots:
   '@biomejs/cli-win32-x64@2.4.8':
     optional: true
 
-  '@capacitor-community/camera-preview@7.0.5(@capacitor/core@8.2.0)':
-    dependencies:
-      '@capacitor/core': 8.2.0
-
   '@capacitor/android@8.2.0(@capacitor/core@8.2.0)':
     dependencies:
       '@capacitor/core': 8.2.0
@@ -5998,7 +5990,7 @@ snapshots:
     dependencies:
       '@capacitor/core': 8.2.0
 
-  '@capgo/camera-preview@8.1.4(@capacitor/core@8.2.0)':
+  '@capgo/camera-preview@8.1.4(patch_hash=a9e9b3d852e7698cae22865faf4b5bc80b7b2bd42a9647cae10054d696911a7e)(@capacitor/core@8.2.0)':
     dependencies:
       '@capacitor/core': 8.2.0
 
