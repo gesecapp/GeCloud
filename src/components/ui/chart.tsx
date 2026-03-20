@@ -278,4 +278,4 @@ export function getChartColor(index: number) {
   return `var(--color-${COLORS[colorIndex]}-${shade})`;
 }
 
-export { ChartContainer, ChartTooltip, ChartTooltipContent, ChartLegend, ChartLegendContent, ChartStyle };
+export { ChartContainer, ChartLegend, ChartLegendContent, ChartStyle, ChartTooltip, ChartTooltipContent };

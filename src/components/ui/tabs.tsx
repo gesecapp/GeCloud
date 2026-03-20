@@ -58,4 +58,4 @@ function TabsContent({ className, ...props }: React.ComponentProps<typeof TabsPr
   return <TabsPrimitive.Content data-slot="tabs-content" className={cn('w-full flex-1 outline-none', 'fade-in-50 animate-in duration-500', className)} {...props} />;
 }
 
-export { Tabs, TabsList, TabsTrigger, TabsContent };
+export { Tabs, TabsContent, TabsList, TabsTrigger };

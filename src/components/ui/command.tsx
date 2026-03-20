@@ -96,4 +96,4 @@ function CommandShortcut({ className, ...props }: React.ComponentProps<'span'>) 
   return <span data-slot="command-shortcut" className={cn('ml-auto text-muted-foreground text-xs tracking-widest', className)} {...props} />;
 }
 
-export { Command, CommandDialog, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem, CommandShortcut, CommandSeparator };
+export { Command, CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator, CommandShortcut };
