@@ -4,3 +4,6 @@ project(':capacitor-android').projectDir = new File('../node_modules/.pnpm/@capa
 
 include ':capacitor-community-camera-preview'
 project(':capacitor-community-camera-preview').projectDir = new File('../node_modules/.pnpm/@capacitor-community+camera-preview@7.0.5_@capacitor+core@8.2.0/node_modules/@capacitor-community/camera-preview/android')
+
+include ':capgo-camera-preview'
+project(':capgo-camera-preview').projectDir = new File('../node_modules/.pnpm/@capgo+camera-preview@8.1.4_@capacitor+core@8.2.0/node_modules/@capgo/camera-preview/android')
