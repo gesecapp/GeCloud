@@ -60,7 +60,7 @@ function CameraCaptureDialog({ open, onClose, onCapture }: CameraCaptureDialogPr
     if (open) {
       document.documentElement.classList.add('camera-preview-active');
       CameraPreview.start({
-        position: 'rear',
+        position: 'front',
         parent: 'camera-preview-container',
         toBack: true,
         enableOpacity: true,
@@ -86,14 +86,26 @@ function CameraCaptureDialog({ open, onClose, onCapture }: CameraCaptureDialogPr
 
   // Apply CSS filters on Web fallback video
   useEffect(() => {
-    if (open && !isNative) {
+    if (!open || isNative) return;
+
+    let rafId: number;
+    const updateStyle = () => {
       const container = document.getElementById('camera-preview-container');
       const video = container?.querySelector('video');
       if (video) {
+        if (video.style.objectFit !== 'cover') {
+          video.style.objectFit = 'cover';
+          video.style.width = '100%';
+          video.style.height = '100%';
+        }
         video.style.filter = `brightness(${brightnessFilter}%) contrast(${100 + wdrLevel * 0.3}%) saturate(${100 + wdrLevel * 0.1}%)`;
-        video.style.transform = `scale(${zoom}) translateY(${-verticalOffset}%)`;
+        video.style.transform = `scaleX(-1) scale(${zoom}) translateY(${-verticalOffset}%)`;
       }
-    }
+      rafId = requestAnimationFrame(updateStyle);
+    };
+    rafId = requestAnimationFrame(updateStyle);
+
+    return () => cancelAnimationFrame(rafId);
   }, [brightnessFilter, wdrLevel, zoom, verticalOffset, open, isNative]);
 
   const triggerAutoFocus = useCallback(() => {
@@ -158,6 +170,13 @@ function CameraCaptureDialog({ open, onClose, onCapture }: CameraCaptureDialogPr
       canvas.height = outputHeight;
 
       context.filter = `brightness(${brightnessFilter}%) contrast(${100 + wdrLevel * 0.3}%) saturate(${100 + wdrLevel * 0.1}%)`;
+
+      if (!isNative) {
+        // Mirror the canvas for web to match the preview
+        context.translate(canvas.width, 0);
+        context.scale(-1, 1);
+      }
+
       context.drawImage(img, sourceX, clampedSourceY, sourceWidth, sourceHeight, 0, 0, canvas.width, canvas.height);
 
       const rawDataUrl = canvas.toDataURL('image/jpeg', 0.9);
@@ -184,8 +203,8 @@ function CameraCaptureDialog({ open, onClose, onCapture }: CameraCaptureDialogPr
       )}
       <DialogContent
         className={cn(
-          "flex! h-[min(90vh,800px)] max-w-150 flex-col gap-0 overflow-hidden border-none p-0 sm:min-w-fit!",
-          isNative ? "bg-transparent shadow-none" : "bg-black shadow-lg"
+          'flex! h-[min(90vh,800px)] max-w-150 flex-col gap-0 overflow-hidden border-none p-0 sm:min-w-fit!',
+          isNative ? 'bg-transparent shadow-none' : 'bg-black shadow-lg',
         )}
         style={isNative ? { boxShadow: '0 0 0 9999px #000' } : {}}
         showCloseButton={false}
