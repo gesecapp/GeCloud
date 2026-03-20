@@ -1,5 +1,6 @@
 {
-  "name": "front-end-architecture",
+  "name": "gecloud",
+  "version": "1.18.0",
   "private": true,
   "type": "module",
   "engines": {

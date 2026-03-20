@@ -1,8 +1,8 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.ge-cloud',
-  appName: 'GE-Cloud',
+  appId: 'br.com.gecloud',
+  appName: 'GeCloud',
   webDir: 'dist',
   zoomEnabled: false,
 };
