@@ -84,29 +84,7 @@ function CameraCaptureDialog({ open, onClose, onCapture }: CameraCaptureDialogPr
     }
   }, [zoom, open, isNative]);
 
-  // Apply CSS filters on Web fallback video
-  useEffect(() => {
-    if (!open || isNative) return;
-
-    let rafId: number;
-    const updateStyle = () => {
-      const container = document.getElementById('camera-preview-container');
-      const video = container?.querySelector('video');
-      if (video) {
-        if (video.style.objectFit !== 'cover') {
-          video.style.objectFit = 'cover';
-          video.style.width = '100%';
-          video.style.height = '100%';
-        }
-        video.style.filter = `brightness(${brightnessFilter}%) contrast(${100 + wdrLevel * 0.3}%) saturate(${100 + wdrLevel * 0.1}%)`;
-        video.style.transform = `scaleX(-1) scale(${zoom}) translateY(${-verticalOffset}%)`;
-      }
-      rafId = requestAnimationFrame(updateStyle);
-    };
-    rafId = requestAnimationFrame(updateStyle);
-
-    return () => cancelAnimationFrame(rafId);
-  }, [brightnessFilter, wdrLevel, zoom, verticalOffset, open, isNative]);
+  // Native zoom is handled, Web zoom and filters are handled by injected <style> below
 
   const triggerAutoFocus = useCallback(() => {
     setIsFocusing(true);
@@ -198,6 +176,24 @@ function CameraCaptureDialog({ open, onClose, onCapture }: CameraCaptureDialogPr
           .camera-preview-active [data-slot="dialog-overlay"],
           .camera-preview-active [data-slot="dialog-content"] {
             background: transparent !important;
+          }
+        `}</style>
+      )}
+      {open && !isNative && (
+        <style>{`
+          #camera-preview-container video {
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            min-width: 100% !important;
+            min-height: 100% !important;
+            object-fit: cover !important;
+            object-position: center calc(50% + ${-verticalOffset}%) !important;
+            transform: scaleX(-1) scale(${zoom}) !important;
+            filter: brightness(${brightnessFilter}%) contrast(${100 + wdrLevel * 0.3}%) saturate(${100 + wdrLevel * 0.1}%) !important;
+            transform-origin: center center !important;
           }
         `}</style>
       )}
