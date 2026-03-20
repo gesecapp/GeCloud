@@ -53,5 +53,7 @@
 	<string>Este app precisa de acesso à galeria para salvar fotos.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Este app precisa de acesso à galeria para selecionar fotos.</string>
+	<key>UIViewGroupOpacity</key>
+	<false/>
 </dict>
 </plist>
