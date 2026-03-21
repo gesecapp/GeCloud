@@ -13,7 +13,6 @@ import { Route as PublicRouteImport } from './routes/_public';
 import { Route as PrivateRouteImport } from './routes/_private';
 import { Route as IndexRouteImport } from './routes/index';
 import { Route as PublicPrivacyPolicyIndexRouteImport } from './routes/_public/privacy-policy/index';
-import { Route as PublicDevelopIndexRouteImport } from './routes/_public/develop/index';
 import { Route as PublicContactIndexRouteImport } from './routes/_public/contact/index';
 import { Route as PublicAppAuthIndexRouteImport } from './routes/_public/app-auth/index';
 import { Route as PrivateAccessUserIndexRouteImport } from './routes/_private/access-user/index';
@@ -39,11 +38,6 @@ const PublicPrivacyPolicyIndexRoute =
     path: '/privacy-policy/',
     getParentRoute: () => PublicRoute,
   } as any);
-const PublicDevelopIndexRoute = PublicDevelopIndexRouteImport.update({
-  id: '/develop/',
-  path: '/develop/',
-  getParentRoute: () => PublicRoute,
-} as any);
 const PublicContactIndexRoute = PublicContactIndexRouteImport.update({
   id: '/contact/',
   path: '/contact/',
@@ -77,7 +71,6 @@ export interface FileRoutesByFullPath {
   '/access-user/': typeof PrivateAccessUserIndexRoute;
   '/app-auth/': typeof PublicAppAuthIndexRoute;
   '/contact/': typeof PublicContactIndexRoute;
-  '/develop/': typeof PublicDevelopIndexRoute;
   '/privacy-policy/': typeof PublicPrivacyPolicyIndexRoute;
   '/app-auth/reset-password/$token': typeof PublicAppAuthResetPasswordTokenRoute;
 }
@@ -87,7 +80,6 @@ export interface FileRoutesByTo {
   '/access-user': typeof PrivateAccessUserIndexRoute;
   '/app-auth': typeof PublicAppAuthIndexRoute;
   '/contact': typeof PublicContactIndexRoute;
-  '/develop': typeof PublicDevelopIndexRoute;
   '/privacy-policy': typeof PublicPrivacyPolicyIndexRoute;
   '/app-auth/reset-password/$token': typeof PublicAppAuthResetPasswordTokenRoute;
 }
@@ -100,7 +92,6 @@ export interface FileRoutesById {
   '/_private/access-user/': typeof PrivateAccessUserIndexRoute;
   '/_public/app-auth/': typeof PublicAppAuthIndexRoute;
   '/_public/contact/': typeof PublicContactIndexRoute;
-  '/_public/develop/': typeof PublicDevelopIndexRoute;
   '/_public/privacy-policy/': typeof PublicPrivacyPolicyIndexRoute;
   '/_public/app-auth/reset-password/$token': typeof PublicAppAuthResetPasswordTokenRoute;
 }
@@ -112,7 +103,6 @@ export interface FileRouteTypes {
     | '/access-user/'
     | '/app-auth/'
     | '/contact/'
-    | '/develop/'
     | '/privacy-policy/'
     | '/app-auth/reset-password/$token';
   fileRoutesByTo: FileRoutesByTo;
@@ -122,7 +112,6 @@ export interface FileRouteTypes {
     | '/access-user'
     | '/app-auth'
     | '/contact'
-    | '/develop'
     | '/privacy-policy'
     | '/app-auth/reset-password/$token';
   id:
@@ -134,7 +123,6 @@ export interface FileRouteTypes {
     | '/_private/access-user/'
     | '/_public/app-auth/'
     | '/_public/contact/'
-    | '/_public/develop/'
     | '/_public/privacy-policy/'
     | '/_public/app-auth/reset-password/$token';
   fileRoutesById: FileRoutesById;
@@ -173,13 +161,6 @@ declare module '@tanstack/react-router' {
       path: '/privacy-policy';
       fullPath: '/privacy-policy/';
       preLoaderRoute: typeof PublicPrivacyPolicyIndexRouteImport;
-      parentRoute: typeof PublicRoute;
-    };
-    '/_public/develop/': {
-      id: '/_public/develop/';
-      path: '/develop';
-      fullPath: '/develop/';
-      preLoaderRoute: typeof PublicDevelopIndexRouteImport;
       parentRoute: typeof PublicRoute;
     };
     '/_public/contact/': {
@@ -235,7 +216,6 @@ interface PublicRouteChildren {
   PublicNewUserTokenRoute: typeof PublicNewUserTokenRoute;
   PublicAppAuthIndexRoute: typeof PublicAppAuthIndexRoute;
   PublicContactIndexRoute: typeof PublicContactIndexRoute;
-  PublicDevelopIndexRoute: typeof PublicDevelopIndexRoute;
   PublicPrivacyPolicyIndexRoute: typeof PublicPrivacyPolicyIndexRoute;
   PublicAppAuthResetPasswordTokenRoute: typeof PublicAppAuthResetPasswordTokenRoute;
 }
@@ -244,7 +224,6 @@ const PublicRouteChildren: PublicRouteChildren = {
   PublicNewUserTokenRoute: PublicNewUserTokenRoute,
   PublicAppAuthIndexRoute: PublicAppAuthIndexRoute,
   PublicContactIndexRoute: PublicContactIndexRoute,
-  PublicDevelopIndexRoute: PublicDevelopIndexRoute,
   PublicPrivacyPolicyIndexRoute: PublicPrivacyPolicyIndexRoute,
   PublicAppAuthResetPasswordTokenRoute: PublicAppAuthResetPasswordTokenRoute,
 };
