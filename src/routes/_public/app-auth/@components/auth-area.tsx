@@ -1,5 +1,4 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Link } from '@tanstack/react-router';
 import { Eye, EyeOff, Loader2 } from 'lucide-react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -44,14 +43,6 @@ export function AuthArea({ onGuestMode, onForgotPassword }: AuthAreaProps) {
           </ItemActions>
         </ItemHeader>
         <ItemDescription>Digite seu CPF e senha para acessar</ItemDescription>
-        <div className="flex items-center gap-2">
-          <ItemDescription>Digite seu CPF e senha para acessar</ItemDescription>
-          <Link to="/develop">
-            <Button variant="link" className="h-auto p-0">
-              🐞
-            </Button>
-          </Link>
-        </div>
       </ItemContent>
 
       <Form {...form}>
