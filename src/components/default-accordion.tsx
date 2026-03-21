@@ -1,19 +1,15 @@
-import { faker } from '@faker-js/faker';
 import { MinusIcon, PlusIcon } from 'lucide-react';
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 export const title = 'Abas com Ícone à Esquerda';
 
-const data: { value: string; title: string; content: string }[] = [];
-
-for (const _ of new Array(4).fill(0)) {
-  data.push({
-    value: faker.string.uuid(),
-    title: faker.company.catchPhrase(),
-    content: faker.lorem.paragraph(),
-  });
-}
+const data = [
+  { value: '1', title: 'Gestão integrada de acessos', content: 'Controle completo de entrada e saída de pessoas, veículos e materiais com registro em tempo real.' },
+  { value: '2', title: 'Monitoramento contínuo de áreas', content: 'Acompanhamento em tempo real de todas as áreas monitoradas com alertas automáticos e histórico detalhado.' },
+  { value: '3', title: 'Relatórios e auditoria simplificados', content: 'Geração de relatórios personalizados com filtros avançados para auditoria e conformidade operacional.' },
+  { value: '4', title: 'Comunicação centralizada de equipes', content: 'Canal unificado para comunicação entre equipes de segurança, portaria e administração predial.' },
+];
 
 const Example = () => (
   <Accordion className="flex w-full max-w-md flex-col gap-2" collapsible defaultValue={data[0].value} type="single">

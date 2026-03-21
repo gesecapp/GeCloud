@@ -1,10 +1,9 @@
-import { Camera, Contrast, FlipHorizontal, Lightbulb, MoveVertical, X, ZoomIn } from "lucide-react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { Camera, Contrast, FlipHorizontal, Lightbulb, MoveVertical, X, ZoomIn } from 'lucide-react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
-import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { compressImageToBase64 } from "@/lib/image-compression";
-
+import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { compressImageToBase64 } from '@/lib/image-compression';
 
 // --- Slider Control ---
 
@@ -35,7 +34,7 @@ function CaptureSlider({
         min={min}
         onChange={(e) => onChange(Number(e.target.value))}
         step={step}
-        style={{ writingMode: "vertical-lr", direction: "rtl" } as React.CSSProperties}
+        style={{ writingMode: 'vertical-lr', direction: 'rtl' } as React.CSSProperties}
         type="range"
         value={value}
       />
@@ -50,7 +49,7 @@ function CameraCaptureDialog({ open, onClose, onCapture }: CameraCaptureDialogPr
   const [verticalOffset, setVerticalOffset] = useState(0);
   const [brightnessFilter, setBrightnessFilter] = useState(100);
   const [wdrLevel, setWdrLevel] = useState(0);
-  const [facingMode, setFacingMode] = useState<"user" | "environment">("user");
+  const [facingMode, setFacingMode] = useState<'user' | 'environment'>('user');
 
   const videoRef = useRef<HTMLVideoElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
@@ -120,22 +119,22 @@ function CameraCaptureDialog({ open, onClose, onCapture }: CameraCaptureDialogPr
         }
       }
 
-      const canvas = document.createElement("canvas");
+      const canvas = document.createElement('canvas');
       canvas.width = outputWidth;
       canvas.height = outputHeight;
-      const ctx = canvas.getContext("2d");
+      const ctx = canvas.getContext('2d');
       if (!ctx) return;
 
       ctx.filter = `brightness(${brightnessFilter}%) contrast(${100 + wdrLevel * 0.3}%) saturate(${100 + wdrLevel * 0.1}%)`;
 
-      if (facingMode === "user") {
+      if (facingMode === 'user') {
         ctx.translate(canvas.width, 0);
         ctx.scale(-1, 1);
       }
 
       ctx.drawImage(video, sourceX, sourceY, sourceWidth, sourceHeight, 0, 0, canvas.width, canvas.height);
 
-      const rawDataUrl = canvas.toDataURL("image/jpeg", 0.9);
+      const rawDataUrl = canvas.toDataURL('image/jpeg', 0.9);
       const compressed = await compressImageToBase64(rawDataUrl);
       onCapture(compressed);
       onClose();
@@ -144,16 +143,14 @@ function CameraCaptureDialog({ open, onClose, onCapture }: CameraCaptureDialogPr
     }
   }
 
-  const isMirrored = facingMode === "user";
+  const isMirrored = facingMode === 'user';
 
   return (
     <Dialog open={open} onOpenChange={(v) => !v && onClose()}>
-      <DialogContent
-        className="flex! h-[min(90vh,800px)] max-w-150 flex-col gap-0 overflow-hidden border-none bg-black p-0 shadow-lg sm:min-w-fit!"
-        showCloseButton={false}
-      >
+      <DialogContent className="flex! h-[min(90vh,800px)] max-w-150 flex-col gap-0 overflow-hidden border-none bg-black p-0 shadow-lg sm:min-w-fit!" showCloseButton={false}>
         <DialogHeader className="relative z-30 flex shrink-0 flex-row items-center justify-between bg-black/40 px-2 py-1 text-white backdrop-blur-md sm:px-3 sm:py-2">
           <DialogTitle className="text-sm text-white sm:text-lg">Capturar Foto</DialogTitle>
+          <DialogDescription className="sr-only">Posicione seu rosto na área indicada e capture a foto</DialogDescription>
           <Button className="text-white" onClick={onClose} size="icon-sm" variant="ghost">
             <X />
           </Button>
@@ -167,7 +164,7 @@ function CameraCaptureDialog({ open, onClose, onCapture }: CameraCaptureDialogPr
             muted
             className="h-full w-full object-cover"
             style={{
-              transform: `${isMirrored ? "scaleX(-1)" : ""} scale(${zoom}) translateY(${-verticalOffset}%)`,
+              transform: `${isMirrored ? 'scaleX(-1)' : ''} scale(${zoom}) translateY(${-verticalOffset}%)`,
               filter: `brightness(${brightnessFilter}%) contrast(${100 + wdrLevel * 0.3}%) saturate(${100 + wdrLevel * 0.1}%)`,
             }}
           />
@@ -187,14 +184,14 @@ function CameraCaptureDialog({ open, onClose, onCapture }: CameraCaptureDialogPr
           <div className="pointer-events-none absolute inset-0 z-5 flex items-center justify-center">
             <div
               className="aspect-3/4 w-[min(calc((100%-32px)*0.55),calc((100dvh-100px)*0.75*0.55))] rounded-[50%] border-2 border-white/30 border-dashed transition-colors duration-300"
-              style={{ boxShadow: "0 0 0 9999px rgba(0, 0, 0, 0.4)" }}
+              style={{ boxShadow: '0 0 0 9999px rgba(0, 0, 0, 0.4)' }}
             />
           </div>
 
           {/* Flip camera button */}
           <Button
             className="absolute bottom-22.5 left-2 z-20 bg-black/60 text-white backdrop-blur-md hover:bg-black/80 sm:bottom-25 sm:left-3"
-            onClick={() => setFacingMode((p) => (p === "user" ? "environment" : "user"))}
+            onClick={() => setFacingMode((p) => (p === 'user' ? 'environment' : 'user'))}
             size="icon-sm"
             variant="ghost"
           >
